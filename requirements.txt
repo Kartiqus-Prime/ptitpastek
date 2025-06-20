@@ -1,0 +1,44 @@
+# Django Requirements for La P'tit Pastèk
+
+# Core Django
+Django==4.2.7
+psycopg2-binary==2.9.9
+
+# Authentication & Security
+django-allauth==0.57.0
+django-cors-headers==4.3.1
+django-extensions==3.2.3
+
+# Frontend & Styling
+django-tailwind==3.6.0
+django-widget-tweaks==1.5.0
+
+# Image handling
+Pillow==10.1.0
+django-imagekit==5.0.0
+
+# API & Serialization
+djangorestframework==3.14.0
+django-filter==23.3
+
+# Database & Caching
+redis==5.0.1
+django-redis==5.4.0
+
+# File storage (if needed for production)
+django-storages==1.14.2
+boto3==1.29.7
+
+# Development tools
+django-debug-toolbar==4.2.0
+python-decouple==3.8
+
+# Production server
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# Payment processing (if needed)
+stripe==7.7.0
+
+# Email backend (if needed)
+django-anymail==10.2

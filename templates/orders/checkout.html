@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Commande - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-watermelon-cream dark:bg-gray-900 py-6 sm:py-8">
+    <div class="container mx-auto px-4">
+        <div class="mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Finaliser ma commande
+            </h1>
+            <p class="text-gray-600 dark:text-gray-300">
+                Vérifiez vos informations et validez votre commande
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Checkout Form -->
+            <div class="lg:col-span-2">
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Shipping Address -->
+                    <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-6 shadow-sm">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            Adresse de livraison
+                        </h2>
+                        
+                        {% if addresses %}
+                            <div class="mb-4">
+                                <label for="{{ form.shipping_address.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Choisir une adresse existante
+                                </label>
+                                {{ form.shipping_address }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label for="{{ form.shipping_name.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Nom complet *
+                                </label>
+                                {{ form.shipping_name }}
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label for="{{ form.shipping_address_line1.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Adresse *
+                                </label>
+                                {{ form.shipping_address_line1 }}
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label for="{{ form.shipping_address_line2.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Complément d'adresse
+                                </label>
+                                {{ form.shipping_address_line2 }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.shipping_city.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Ville *
+                                </label>
+                                {{ form.shipping_city }}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.shipping_postal_code.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Code postal *
+                                </label>
+                                {{ form.shipping_postal_code }}
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label for="{{ form.shipping_country.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Pays *
+                                </label>
+                                {{ form.shipping_country }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Notes -->
+                    <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-6 shadow-sm">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            Notes de commande
+                        </h2>
+                        <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Instructions spéciales (optionnel)
+                        </label>
+                        {{ form.notes }}
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-6 shadow-sm">
+                        <div class="flex items-start space-x-3">
+                            {{ form.accept_terms }}
+                            <label for="{{ form.accept_terms.id_for_label }}" class="text-sm text-gray-700 dark:text-gray-300">
+                                J'accepte les <a href="#" class="text-watermelon-red hover:underline">conditions générales de vente</a> et la <a href="#" class="text-watermelon-red hover:underline">politique de confidentialité</a>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="flex justify-end">
+                        <button type="submit" class="bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-8 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            Valider ma commande
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-6 shadow-sm sticky top-24">
+                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                        Récapitulatif
+                    </h2>
+                    
+                    <!-- Cart Items -->
+                    <div class="space-y-4 mb-6">
+                        {% for item in cart_items %}
+                            <div class="flex items-center space-x-3">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-12 h-12 object-cover rounded">
+                                {% else %}
+                                    <div class="w-12 h-12 bg-watermelon-cream dark:bg-gray-700 rounded flex items-center justify-center">
+                                        <span class="text-lg">🍉</span>
+                                    </div>
+                                {% endif %}
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                        {{ item.product.name }}
+                                    </p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                                        {{ item.quantity }}x {{ item.product.price }}€
+                                    </p>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                                    {{ item.get_total_price }}€
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Totals -->
+                    <div class="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2">
+                        <div class="flex justify-between text-gray-600 dark:text-gray-300">
+                            <span>Sous-total</span>
+                            <span>{{ cart.total_price }}€</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600 dark:text-gray-300">
+                            <span>Livraison</span>
+                            <span>{% if cart.shipping_cost == 0 %}Gratuit{% else %}{{ cart.shipping_cost }}€{% endif %}</span>
+                        </div>
+                        <div class="flex justify-between text-xl font-semibold text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-700 pt-2">
+                            <span>Total</span>
+                            <span>{{ cart.final_total }}€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
