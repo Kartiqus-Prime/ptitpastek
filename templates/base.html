@@ -1,11 +1,11 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}La P'tit Pastèk - La pastèque autrement{% endblock %}</title>
-    
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
     <!-- TailwindCSS -->
     {% load tailwind_tags %}
     {% tailwind_css %}

@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     "imagekit",
     "rest_framework",
     "django_filters",
+<<<<<<< Updated upstream
     
+=======
+    "theme",
+>>>>>>> Stashed changes
     # Local apps
     "accounts",
     "products",
@@ -176,6 +180,12 @@ REST_FRAMEWORK = {
 # Tailwind CSS
 TAILWIND_APP_NAME = 'theme'
 
+<<<<<<< Updated upstream
+=======
+STATICFILES_DIRS = [
+    BASE_DIR / "theme/static"
+]
+>>>>>>> Stashed changes
 # Cache configuration
 CACHES = {
     'default': {
