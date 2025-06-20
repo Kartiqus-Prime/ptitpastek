@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Connexion - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="min-h-screen py-6 sm:py-8 bg-gradient-to-br from-watermelon-cream via-white to-watermelon-green-light/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="max-w-md mx-auto">
+            <div class="border border-watermelon-red/30 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-800 rounded-lg">
+                <div class="text-center space-y-4 p-6 pb-0">
+                    <div class="flex justify-center mb-6">
+                        <img 
+                            src="/static/images/logo.png" 
+                            alt="La P'tit Pastèk" 
+                            class="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 object-contain"
+                            onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\'text-4xl\'>🍉</div>'"
+                        />
+                    </div>
+                    <h1 class="text-xl sm:text-2xl bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent font-bold">
+                        La P'tit Pastèk
+                    </h1>
+                    <p class="text-sm text-watermelon-red dark:text-watermelon-pink italic">
+                        La pastèque autrement
+                    </p>
+                    <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+                        Connectez-vous à votre compte
+                    </p>
+                </div>
+                
+                <div class="space-y-6 p-6">
+                    <form method="post" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="space-y-2">
+                            <label for="{{ form.username.id_for_label }}" class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                name="{{ form.username.name }}"
+                                id="{{ form.username.id_for_label }}"
+                                value="{{ form.username.value|default:'' }}"
+                                required
+                                class="w-full h-11 sm:h-12 border border-watermelon-red/30 focus:border-watermelon-green dark:border-gray-600 dark:focus:border-watermelon-green rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-watermelon-green/20"
+                                placeholder="votre@email.com"
+                            />
+                            {% if form.username.errors %}
+                                <div class="text-red-600 text-sm">{{ form.username.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label for="{{ form.password.id_for_label }}" class="text-sm sm:text-base font-medium text-gray-700 dark:text-gray-300">
+                                Mot de passe
+                            </label>
+                            <input
+                                type="password"
+                                name="{{ form.password.name }}"
+                                id="{{ form.password.id_for_label }}"
+                                required
+                                class="w-full h-11 sm:h-12 border border-watermelon-red/30 focus:border-watermelon-green dark:border-gray-600 dark:focus:border-watermelon-green rounded-lg px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-watermelon-green/20"
+                                placeholder="••••••••"
+                            />
+                            {% if form.password.errors %}
+                                <div class="text-red-600 text-sm">{{ form.password.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            class="w-full h-11 sm:h-12 bg-gradient-to-r from-brand-primary to-watermelon-red hover:from-watermelon-red-dark hover:to-brand-primary text-sm sm:text-base font-medium text-white rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                        >
+                            Se connecter
+                        </button>
+                    </form>
+                    
+                    <div class="space-y-4 text-center">
+                        <a href="{% url 'accounts:password_reset' %}" class="text-watermelon-green hover:text-watermelon-green-dark dark:text-watermelon-green-light dark:hover:text-watermelon-green hover:underline text-sm transition-colors">
+                            Mot de passe oublié ?
+                        </a>
+                        
+                        <div class="border-t pt-4 space-y-4">
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                Vous n'avez pas de compte ?
+                            </p>
+                            <a href="{% url 'accounts:register' %}" class="w-full h-11 sm:h-12 border border-watermelon-green text-watermelon-green hover:bg-watermelon-green hover:text-white dark:border-watermelon-green-light dark:text-watermelon-green-light dark:hover:bg-watermelon-green-light dark:hover:text-gray-900 text-sm sm:text-base rounded-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center">
+                                Créer un compte
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
