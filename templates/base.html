@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}La P'tit Pastèk - La pastèque autrement{% endblock %}</title>
+    
+    <!-- TailwindCSS -->
+    {% load tailwind_tags %}
+    {% tailwind_css %}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/images/logo.png">
+    
+    <!-- Meta description -->
+    <meta name="description" content="{% block description %}Découvrez nos délicieux produits alimentaires faits à base de pastèques fraîches. Une explosion de saveurs naturelles et rafraîchissantes.{% endblock %}">
+    
+    <!-- Additional CSS -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="h-full bg-gradient-to-b from-watermelon-cream via-white to-watermelon-green-light/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-inter">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-2 py-1">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="flex items-center text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300">
+                    <img 
+                        src="/static/images/logo.png" 
+                        alt="La P'tit Pastèk" 
+                        class="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 object-contain"
+                        onerror="this.style.display='none'"
+                    />
+                </a>
+
+                <!-- Navigation Desktop -->
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                    <a href="{% url 'home' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
+                        Accueil
+                    </a>
+                    <a href="{% url 'products:list' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
+                        Produits
+                    </a>
+                    <a href="{% url 'about' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
+                        À propos
+                    </a>
+                    <a href="{% url 'contact' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
+                        Contact
+                    </a>
+                </div>
+
+                <!-- Actions Desktop -->
+                <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
+                    <!-- Cart Icon -->
+                    <a href="{% url 'cart:view' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.7 6.2a1 1 0 001 1.3h9.4a1 1 0 001-1.3L15 13M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6"></path>
+                        </svg>
+                    </a>
+                    
+                    {% if user.is_authenticated %}
+                        <div class="flex items-center space-x-3 lg:space-x-4">
+                            {% if user.is_staff %}
+                                <a href="{% url 'admin:index' %}" class="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition-colors duration-300">
+                                    <svg class="h-4 w-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                    </svg>
+                                    Admin
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'accounts:profile' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 px-3 py-2 rounded-lg transition-colors duration-300">
+                                Profil
+                            </a>
+                            <a href="{% url 'accounts:logout' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 px-3 py-2 rounded-lg transition-colors duration-300">
+                                Déconnexion
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="flex items-center space-x-2">
+                            <a href="{% url 'accounts:login' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 px-3 py-2 rounded-lg transition-colors duration-300">
+                                Connexion
+                            </a>
+                            <a href="{% url 'accounts:register' %}" class="bg-white text-watermelon-red hover:bg-watermelon-cream dark:bg-watermelon-cream dark:text-watermelon-red-dark dark:hover:bg-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 px-4 py-2 rounded-lg font-medium">
+                                Inscription
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Menu Mobile Toggle -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <a href="{% url 'cart:view' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.7 6.2a1 1 0 001 1.3h9.4a1 1 0 001-1.3L15 13M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6"></path>
+                        </svg>
+                    </a>
+                    <button id="mobile-menu-toggle" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Mobile -->
+            <div id="mobile-menu" class="md:hidden mt-4 pb-4 border-t border-white/20 dark:border-white/30 hidden">
+                <div class="flex flex-col space-y-3 pt-4">
+                    <a href="{% url 'home' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        Accueil
+                    </a>
+                    <a href="{% url 'products:list' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        Produits
+                    </a>
+                    <a href="{% url 'about' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        À propos
+                    </a>
+                    <a href="{% url 'contact' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        Contact
+                    </a>
+                    
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                            <a href="{% url 'admin:index' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20 flex items-center">
+                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                                Administration
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'accounts:profile' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                            Profil
+                        </a>
+                        <a href="{% url 'accounts:logout' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                            Déconnexion
+                        </a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                            Connexion
+                        </a>
+                        <a href="{% url 'accounts:register' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                            Inscription
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="container mx-auto px-4 py-2">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} bg-white border-l-4 border-brand-primary p-4 mb-4 shadow-lg rounded-r-lg">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-gray-700">{{ message }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark text-white">
+        <div class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Logo et description -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-4 mb-6">
+                        <img 
+                            src="/static/images/logo.png" 
+                            alt="La P'tit Pastèk" 
+                            class="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 object-contain"
+                            onerror="this.style.display='none'"
+                        />
+                    </div>
+                    <p class="text-white/90 dark:text-white/80 mb-4">
+                        Découvrez nos délicieux produits alimentaires faits à base de pastèques fraîches. 
+                        Une explosion de saveurs naturelles et rafraîchissantes.
+                    </p>
+                </div>
+
+                <!-- Liens rapides -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
+                    <div class="space-y-2">
+                        <a href="{% url 'home' %}" class="block text-white/90 dark:text-white/80 hover:text-white dark:hover:text-white transition-colors">
+                            Accueil
+                        </a>
+                        <a href="{% url 'products:list' %}" class="block text-white/90 dark:text-white/80 hover:text-white dark:hover:text-white transition-colors">
+                            Produits
+                        </a>
+                        <a href="{% url 'about' %}" class="block text-white/90 dark:text-white/80 hover:text-white dark:hover:text-white transition-colors">
+                            À propos
+                        </a>
+                        <a href="{% url 'contact' %}" class="block text-white/90 dark:text-white/80 hover:text-white dark:hover:text-white transition-colors">
+                            Contact
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <div class="space-y-2 text-white/90 dark:text-white/80">
+                        <p>📧 contact@laptitpastek.fr</p>
+                        <p>📞 01 23 45 67 89</p>
+                        <p>📍 123 Rue des Fruits, 75001 Paris</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/30 dark:border-white/20 mt-8 pt-8 text-center text-white/90 dark:text-white/80">
+                <p>&copy; 2024 La P'tit Pastèk. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
