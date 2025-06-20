@@ -1,0 +1,271 @@
+
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-watermelon-cream dark:bg-gray-900 py-6 sm:py-8">
+    <div class="container mx-auto px-4">
+        <!-- Breadcrumb -->
+        <nav class="mb-8">
+            <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                <li><a href="{% url 'home' %}" class="hover:text-watermelon-green dark:hover:text-watermelon-green-light">Accueil</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li><a href="{% url 'products:list' %}" class="hover:text-watermelon-green dark:hover:text-watermelon-green-light">Produits</a></li>
+                <li><span class="mx-2">/</span></li>
+                <li class="text-gray-900 dark:text-white font-medium">{{ product.name }}</li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <!-- Product Images -->
+            <div class="space-y-4">
+                <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-4 shadow-sm">
+                    {% if product.image %}
+                        <img 
+                            src="{{ product.image.url }}" 
+                            alt="{{ product.name }}"
+                            class="w-full h-80 sm:h-96 object-cover rounded-lg"
+                        />
+                    {% else %}
+                        <div class="w-full h-80 sm:h-96 bg-watermelon-cream dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                            <span class="text-6xl">🍉</span>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                {% if product.additional_images %}
+                    <div class="grid grid-cols-4 gap-2">
+                        {% for image in product.additional_images %}
+                            <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-2">
+                                <img 
+                                    src="{{ image }}" 
+                                    alt="{{ product.name }}"
+                                    class="w-full h-16 sm:h-20 object-cover rounded cursor-pointer hover:opacity-75 transition-opacity"
+                                />
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Product Info -->
+            <div class="space-y-6">
+                <div>
+                    {% if product.is_new %}
+                        <span class="inline-block bg-watermelon-red text-white px-3 py-1 rounded-full text-sm font-medium mb-3">
+                            Nouveau
+                        </span>
+                    {% endif %}
+                    
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                        {{ product.name }}
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                        {{ product.description }}
+                    </p>
+                </div>
+
+                <!-- Price -->
+                <div class="flex items-center space-x-4">
+                    <span class="text-2xl sm:text-3xl font-bold text-watermelon-red dark:text-watermelon-pink">
+                        {{ product.price }}€
+                    </span>
+                    {% if product.old_price %}
+                        <span class="text-xl text-gray-500 dark:text-gray-400 line-through">
+                            {{ product.old_price }}€
+                        </span>
+                        <span class="bg-watermelon-green text-white px-2 py-1 rounded text-sm font-medium">
+                            -{{ product.old_price|sub:product.price|div:product.old_price|mul:100|floatformat:0 }}%
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Add to Cart Form -->
+                <form method="post" action="{% url 'cart:add_item' %}" class="space-y-4">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    
+                    <div class="flex items-center space-x-4">
+                        <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Quantité:
+                        </label>
+                        <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg">
+                            <button type="button" onclick="decreaseQuantity()" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                </svg>
+                            </button>
+                            <input 
+                                type="number" 
+                                name="quantity" 
+                                id="quantity"
+                                value="1" 
+                                min="1" 
+                                class="w-16 px-4 py-2 text-center border-x border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none"
+                            >
+                            <button type="button" onclick="increaseQuantity()" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button 
+                            type="submit" 
+                            class="flex-1 bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
+                        >
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"></path>
+                            </svg>
+                            Ajouter au panier
+                        </button>
+                        
+                        <button 
+                            type="button" 
+                            onclick="toggleWishlist({{ product.id }})"
+                            class="px-6 py-3 border border-watermelon-red text-watermelon-red hover:bg-watermelon-red hover:text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Product Features -->
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                            <svg class="w-5 h-5 mr-2 text-watermelon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            100% Naturel
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                            <svg class="w-5 h-5 mr-2 text-watermelon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Sans conservateurs
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                            <svg class="w-5 h-5 mr-2 text-watermelon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Fabrication française
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                            <svg class="w-5 h-5 mr-2 text-watermelon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Livraison rapide
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Details Tabs -->
+        <div class="mt-12">
+            <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg shadow-sm">
+                <div class="border-b border-gray-200 dark:border-gray-700">
+                    <nav class="flex space-x-8 px-6">
+                        <button onclick="showTab('description')" id="description-tab" class="py-4 px-1 text-sm font-medium border-b-2 border-watermelon-red text-watermelon-red">
+                            Description
+                        </button>
+                        {% if product.ingredients %}
+                            <button onclick="showTab('ingredients')" id="ingredients-tab" class="py-4 px-1 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                                Ingrédients
+                            </button>
+                        {% endif %}
+                        {% if product.nutrition_info %}
+                            <button onclick="showTab('nutrition')" id="nutrition-tab" class="py-4 px-1 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                                Informations nutritionnelles
+                            </button>
+                        {% endif %}
+                    </nav>
+                </div>
+                
+                <div class="p-6">
+                    <div id="description-content" class="tab-content">
+                        <div class="prose prose-lg max-w-none text-gray-600 dark:text-gray-300">
+                            {{ product.full_description|default:product.description|linebreaks }}
+                        </div>
+                    </div>
+                    
+                    {% if product.ingredients %}
+                        <div id="ingredients-content" class="tab-content hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {% for ingredient in product.ingredients %}
+                                    <div class="flex items-center space-x-2">
+                                        <svg class="w-4 h-4 text-watermelon-green" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                        </svg>
+                                        <span class="text-gray-700 dark:text-gray-300">{{ ingredient }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if product.nutrition_info %}
+                        <div id="nutrition-content" class="tab-content hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {% for key, value in product.nutrition_info.items %}
+                                    <div class="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
+                                        <span class="font-medium text-gray-900 dark:text-white">{{ key|title }}</span>
+                                        <span class="text-gray-600 dark:text-gray-300">{{ value }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function increaseQuantity() {
+    const input = document.getElementById('quantity');
+    input.value = parseInt(input.value) + 1;
+}
+
+function decreaseQuantity() {
+    const input = document.getElementById('quantity');
+    if (parseInt(input.value) > 1) {
+        input.value = parseInt(input.value) - 1;
+    }
+}
+
+function showTab(tabName) {
+    // Hide all tab contents
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.add('hidden'));
+    
+    // Remove active styles from all tabs
+    const tabs = document.querySelectorAll('[id$="-tab"]');
+    tabs.forEach(tab => {
+        tab.classList.remove('border-watermelon-red', 'text-watermelon-red');
+        tab.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700');
+    });
+    
+    // Show selected tab content
+    document.getElementById(tabName + '-content').classList.remove('hidden');
+    
+    // Add active styles to selected tab
+    const activeTab = document.getElementById(tabName + '-tab');
+    activeTab.classList.add('border-watermelon-red', 'text-watermelon-red');
+    activeTab.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700');
+}
+
+function toggleWishlist(productId) {
+    // Implementation for wishlist toggle
+    console.log('Toggle wishlist for product:', productId);
+}
+</script>
+{% endblock %}

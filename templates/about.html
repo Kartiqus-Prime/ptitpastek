@@ -1,0 +1,236 @@
+
+{% extends 'base.html' %}
+
+{% block title %}À Propos - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-b from-pink-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-br from-pink-500 to-rose-400 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center animate-fade-in">
+                <span class="inline-block mb-6 bg-white/20 text-white hover:bg-white/30 transition-colors duration-300 px-3 py-1 rounded-full text-sm">
+                    🍉 Notre histoire
+                </span>
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 animate-scale-in">
+                    À Propos de
+                    <span class="text-pink-100">La P'tit Pastèk</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-pink-100 mb-8 animate-fade-in" style="animation-delay: 0.2s">
+                    La pastèque autrement
+                </p>
+                <p class="text-lg text-pink-50 max-w-3xl mx-auto animate-fade-in" style="animation-delay: 0.4s">
+                    Depuis 2018, nous transformons avec passion la pastèque en délicieux produits artisanaux. 
+                    Notre mission : vous faire redécouvrir ce fruit estival sous toutes ses formes, 
+                    avec des saveurs authentiques et naturelles.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="animate-fade-in">
+                        <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                            Notre
+                            <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">
+                                Histoire
+                            </span>
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                            Tout a commencé dans la cuisine familiale de Marie et Pierre Delacroix, 
+                            passionnés de cuisine et amoureux des saveurs estivales. Inspirés par 
+                            l'abondance de pastèques de leur jardin, ils ont décidé de créer des 
+                            recettes originales pour valoriser ce fruit délicieux.
+                        </p>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                            Aujourd'hui, La P'tit Pastèk est devenue une référence dans l'art de 
+                            transformer la pastèque. Chaque produit est conçu avec amour et savoir-faire, 
+                            dans le respect des traditions artisanales françaises.
+                        </p>
+                        <p class="text-lg text-gray-600 dark:text-gray-300">
+                            Notre équipe de 12 collaborateurs partage la même passion : 
+                            vous offrir des produits d'exception qui révèlent toute la richesse 
+                            gustative de la pastèque.
+                        </p>
+                    </div>
+                    <div class="animate-fade-in" style="animation-delay: 0.3s">
+                        <img 
+                            src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                            alt="Équipe La P'tit Pastèk" 
+                            class="rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-500"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    Nos
+                    <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">
+                        Valeurs
+                    </span>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Les principes qui guident notre travail au quotidien et 
+                    notre engagement envers nos clients.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300 animate-fade-in bg-white dark:bg-gray-800 rounded-lg p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        Passion
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">Nous sommes passionnés par la transformation artisanale de la pastèque en délicieux produits gourmands.</p>
+                </div>
+
+                <div class="text-center border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300 animate-fade-in bg-white dark:bg-gray-800 rounded-lg p-6" style="animation-delay: 0.2s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        Naturel
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">Nos produits sont 100% naturels, sans conservateurs ni additifs artificiels, respectueux de l'environnement.</p>
+                </div>
+
+                <div class="text-center border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300 animate-fade-in bg-white dark:bg-gray-800 rounded-lg p-6" style="animation-delay: 0.4s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        Famille
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">Une entreprise familiale qui perpétue les traditions tout en innovant pour surprendre vos papilles.</p>
+                </div>
+
+                <div class="text-center border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-2 transition-all duration-300 animate-fade-in bg-white dark:bg-gray-800 rounded-lg p-6" style="animation-delay: 0.6s">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                        Qualité
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300">Nous sélectionnons rigoureusement nos pastèques et contrôlons chaque étape de la production.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-16 bg-gradient-to-b from-pink-50 to-white dark:from-gray-900 dark:to-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12 animate-fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    Notre
+                    <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-transparent">
+                        Évolution
+                    </span>
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Les grandes étapes qui ont marqué l'histoire de La P'tit Pastèk.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 animate-fade-in">
+                        <div class="flex-shrink-0 w-24 h-24 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center text-white font-bold text-lg transform hover:scale-110 transition-transform duration-300">
+                            2018
+                        </div>
+                        <div class="flex-1 border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-pink-700 dark:text-pink-400 mb-2">Les débuts</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Création de La P'tit Pastèk dans une petite cuisine familiale avec une première gamme de confitures.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 animate-fade-in" style="animation-delay: 0.2s">
+                        <div class="flex-shrink-0 w-24 h-24 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center text-white font-bold text-lg transform hover:scale-110 transition-transform duration-300">
+                            2020
+                        </div>
+                        <div class="flex-1 border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-pink-700 dark:text-pink-400 mb-2">Expansion</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Développement de nouveaux produits : jus, sirops et sorbets. Installation dans nos premiers locaux.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 animate-fade-in" style="animation-delay: 0.4s">
+                        <div class="flex-shrink-0 w-24 h-24 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center text-white font-bold text-lg transform hover:scale-110 transition-transform duration-300">
+                            2022
+                        </div>
+                        <div class="flex-1 border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-pink-700 dark:text-pink-400 mb-2">Reconnaissance</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Médaille d'or au concours général agricole pour notre confiture de pastèque aux épices.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-6 animate-fade-in" style="animation-delay: 0.6s">
+                        <div class="flex-shrink-0 w-24 h-24 bg-gradient-to-r from-pink-500 to-rose-400 rounded-full flex items-center justify-center text-white font-bold text-lg transform hover:scale-110 transition-transform duration-300">
+                            2024
+                        </div>
+                        <div class="flex-1 border border-pink-100 dark:border-gray-700 hover:border-pink-200 dark:hover:border-gray-600 hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-pink-700 dark:text-pink-400 mb-2">Innovation</h3>
+                                <p class="text-gray-600 dark:text-gray-300">Lancement de notre boutique en ligne et de nouvelles gammes bio et sans sucre ajouté.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-pink-500 to-rose-400">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto animate-fade-in">
+                <h2 class="text-4xl font-bold text-white mb-6">
+                    Rejoignez l'aventure La P'tit Pastèk
+                </h2>
+                <p class="text-xl text-pink-100 mb-8">
+                    Découvrez nos produits artisanaux et laissez-vous surprendre 
+                    par nos créations originales à base de pastèque.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'products:list' %}">
+                        <button class="bg-white text-pink-600 px-8 py-3 rounded-lg font-semibold hover:bg-pink-50 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                            Découvrir nos produits
+                        </button>
+                    </a>
+                    <a href="{% url 'contact' %}">
+                        <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-pink-600 transform hover:scale-105 transition-all duration-300">
+                            Nous contacter
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
