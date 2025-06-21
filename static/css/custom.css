@@ -1,0 +1,224 @@
+/* Styles personnalisés pour La P'tit Pastèk */
+
+/* Animations personnalisées */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+/* Styles pour les formulaires */
+.form-input {
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 focus:border-watermelon-red bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200;
+}
+
+.form-select {
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 focus:border-watermelon-red bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors duration-200;
+}
+
+.form-textarea {
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 focus:border-watermelon-red bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-200 resize-vertical;
+}
+
+/* Boutons */
+.btn-primary {
+  @apply bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply border border-watermelon-green text-watermelon-green hover:bg-watermelon-green hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-300;
+}
+
+.btn-outline {
+  @apply border-2 border-watermelon-red text-watermelon-red hover:bg-watermelon-red hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-300;
+}
+
+/* Cards */
+.card {
+  @apply bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300;
+}
+
+.card-header {
+  @apply p-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.card-body {
+  @apply p-6;
+}
+
+/* Navigation active states */
+.nav-link-active {
+  @apply bg-watermelon-red/10 text-watermelon-red font-medium;
+}
+
+.nav-link {
+  @apply text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200;
+}
+
+/* Badges */
+.badge-new {
+  @apply bg-brand-primary text-white px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-promo {
+  @apply bg-watermelon-red text-white px-2 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-status {
+  @apply px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge-delivered {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400;
+}
+
+.badge-pending {
+  @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-400;
+}
+
+.badge-processing {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400;
+}
+
+.badge-shipped {
+  @apply bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400;
+}
+
+.badge-cancelled {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400;
+}
+
+/* Responsive utilities */
+.container-responsive {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Hover effects */
+.hover-lift {
+  @apply transform hover:-translate-y-1 transition-transform duration-300;
+}
+
+.hover-scale {
+  @apply transform hover:scale-105 transition-transform duration-300;
+}
+
+/* Text utilities */
+.text-gradient {
+  @apply bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent;
+}
+
+/* Loading states */
+.loading {
+  @apply opacity-50 pointer-events-none;
+}
+
+/* Focus states */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 focus:border-watermelon-red;
+}
+
+/* Scrollbar styling */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #EF4444 #F3F4F6;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #F3F4F6;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #EF4444;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #DC2626;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .card {
+    @apply border-2 border-gray-900 dark:border-white;
+  }
+  
+  .btn-primary {
+    @apply border-2 border-gray-900 dark:border-white;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

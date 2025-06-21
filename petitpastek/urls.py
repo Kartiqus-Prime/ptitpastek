@@ -23,6 +23,8 @@ from core import views as core_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    
+    # Core pages
     path("", core_views.HomeView.as_view(), name="home"),
     path("about/", core_views.AboutView.as_view(), name="about"),
     path("contact/", core_views.ContactView.as_view(), name="contact"),
@@ -33,6 +35,11 @@ urlpatterns = [
     path("cart/", include("cart.urls")),
     path("orders/", include("orders.urls")),
 ]
+
+# Admin site customization
+admin.site.site_header = "La P'tit Pastèk Administration"
+admin.site.site_title = "La P'tit Pastèk Admin"
+admin.site.index_title = "Bienvenue dans l'administration"
 
 # Serve media files in development
 if settings.DEBUG:

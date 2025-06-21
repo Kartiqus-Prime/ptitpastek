@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifier l'adresse - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-watermelon-cream dark:bg-gray-900 py-6 sm:py-8">
+    <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    Modifier l'adresse
+                </h1>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Modifiez les informations de votre adresse
+                </p>
+            </div>
+
+            <!-- Form -->
+            <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg shadow-sm">
+                <div class="p-6">
+                    <form method="post" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Nom de l'adresse *
+                                </label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label for="{{ form.address_line1.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Adresse *
+                                </label>
+                                {{ form.address_line1 }}
+                                {% if form.address_line1.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.address_line1.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label for="{{ form.address_line2.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Complément d'adresse
+                                </label>
+                                {{ form.address_line2 }}
+                                {% if form.address_line2.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.address_line2.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Ville *
+                                </label>
+                                {{ form.city }}
+                                {% if form.city.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.city.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.postal_code.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Code postal *
+                                </label>
+                                {{ form.postal_code }}
+                                {% if form.postal_code.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.postal_code.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.country.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Pays *
+                                </label>
+                                {{ form.country }}
+                                {% if form.country.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.country.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.type.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Type d'adresse *
+                                </label>
+                                {{ form.type }}
+                                {% if form.type.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.type.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <div class="flex items-center">
+                                    {{ form.is_default }}
+                                    <label for="{{ form.is_default.id_for_label }}" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                                        Définir comme adresse par défaut
+                                    </label>
+                                </div>
+                                {% if form.is_default.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.is_default.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between pt-6">
+                            <a href="{% url 'accounts:profile' %}" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 py-2 px-6 rounded-lg font-medium transition-colors">
+                                Annuler
+                            </a>
+                            <button type="submit" class="bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-2 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                Modifier l'adresse
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

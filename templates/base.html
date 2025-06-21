@@ -5,33 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}La P'tit Pastèk - La pastèque autrement{% endblock %}</title>
-    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
+    
     <!-- TailwindCSS -->
     {% load tailwind_tags %}
     {% tailwind_css %}
     
+    <!-- Custom CSS -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/static/images/logo.png">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
     
     <!-- Meta description -->
     <meta name="description" content="{% block description %}Découvrez nos délicieux produits alimentaires faits à base de pastèques fraîches. Une explosion de saveurs naturelles et rafraîchissantes.{% endblock %}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}La P'tit Pastèk - La pastèque autrement{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Découvrez nos délicieux produits alimentaires faits à base de pastèques fraîches.{% endblock %}">
+    <meta property="og:image" content="{% static 'images/logo.png' %}">
+    <meta property="og:type" content="website">
     
     <!-- Additional CSS -->
     {% block extra_css %}{% endblock %}
 </head>
 <body class="h-full bg-gradient-to-b from-watermelon-cream via-white to-watermelon-green-light/20 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 font-inter">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-watermelon-red text-white px-4 py-2 rounded-lg z-50">
+        Aller au contenu principal
+    </a>
+
     <!-- Header -->
-    <header class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark shadow-lg sticky top-0 z-50">
-        <nav class="container mx-auto px-2 py-1">
+    <header class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark shadow-lg sticky top-0 z-40">
+        <nav class="container mx-auto px-4 py-2" role="navigation" aria-label="Navigation principale">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
-                <a href="{% url 'home' %}" class="flex items-center text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300">
+                <a href="{% url 'home' %}" class="flex items-center text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300" aria-label="Retour à l'accueil">
                     <img 
-                        src="/static/images/logo.png" 
-                        alt="La P'tit Pastèk" 
-                        class="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 object-contain"
+                        src="{% static 'images/logo.png' %}" 
+                        alt="Logo La P'tit Pastèk" 
+                        class="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain"
                         onerror="this.style.display='none'"
                     />
+                    <span class="ml-2 text-xl font-bold hidden sm:block">La P'tit Pastèk</span>
                 </a>
 
                 <!-- Navigation Desktop -->
@@ -39,7 +54,7 @@
                     <a href="{% url 'home' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
                         Accueil
                     </a>
-                    <a href="{% url 'products:list' %}" class="text-primary hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
+                    <a href="{% url 'products:list' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
                         Produits
                     </a>
                     <a href="{% url 'about' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
@@ -53,17 +68,22 @@
                 <!-- Actions Desktop -->
                 <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
                     <!-- Cart Icon -->
-                    <a href="{% url 'cart:view' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{% url 'cart:view' %}" class="relative text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300" aria-label="Voir le panier">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.7 6.2a1 1 0 001 1.3h9.4a1 1 0 001-1.3L15 13M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6"></path>
                         </svg>
+                        {% if cart_items_count > 0 %}
+                            <span class="absolute -top-1 -right-1 bg-watermelon-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
+                                {{ cart_items_count }}
+                            </span>
+                        {% endif %}
                     </a>
                     
                     {% if user.is_authenticated %}
                         <div class="flex items-center space-x-3 lg:space-x-4">
                             {% if user.is_staff %}
-                                <a href="{% url 'admin:index' %}" class="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition-colors duration-300">
-                                    <svg class="h-4 w-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <a href="{% url 'admin:index' %}" class="bg-white/10 hover:bg-white/20 text-white px-3 py-2 rounded-lg transition-colors duration-300" aria-label="Administration">
+                                    <svg class="h-4 w-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                     </svg>
                                     Admin
@@ -90,13 +110,18 @@
 
                 <!-- Menu Mobile Toggle -->
                 <div class="md:hidden flex items-center space-x-2">
-                    <a href="{% url 'cart:view' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{% url 'cart:view' %}" class="relative text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300" aria-label="Voir le panier">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.7 6.2a1 1 0 001 1.3h9.4a1 1 0 001-1.3L15 13M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6"></path>
                         </svg>
+                        {% if cart_items_count > 0 %}
+                            <span class="absolute -top-1 -right-1 bg-watermelon-red text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-medium">
+                                {{ cart_items_count }}
+                            </span>
+                        {% endif %}
                     </a>
-                    <button id="mobile-menu-toggle" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button id="mobile-menu-toggle" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300" aria-label="Ouvrir le menu" aria-expanded="false">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
@@ -104,41 +129,41 @@
             </div>
 
             <!-- Menu Mobile -->
-            <div id="mobile-menu" class="md:hidden mt-4 pb-4 border-t border-white/20 dark:border-white/30 hidden">
+            <div id="mobile-menu" class="md:hidden mt-4 pb-4 border-t border-white/20 dark:border-white/30 hidden" role="menu">
                 <div class="flex flex-col space-y-3 pt-4">
-                    <a href="{% url 'home' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                    <a href="{% url 'home' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                         Accueil
                     </a>
-                    <a href="{% url 'products:list' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                    <a href="{% url 'products:list' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                         Produits
                     </a>
-                    <a href="{% url 'about' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                    <a href="{% url 'about' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                         À propos
                     </a>
-                    <a href="{% url 'contact' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                    <a href="{% url 'contact' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                         Contact
                     </a>
                     
                     {% if user.is_authenticated %}
                         {% if user.is_staff %}
-                            <a href="{% url 'admin:index' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20 flex items-center">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <a href="{% url 'admin:index' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20 flex items-center" role="menuitem">
+                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                                 </svg>
                                 Administration
                             </a>
                         {% endif %}
-                        <a href="{% url 'accounts:profile' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        <a href="{% url 'accounts:profile' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                             Profil
                         </a>
-                        <a href="{% url 'accounts:logout' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        <a href="{% url 'accounts:logout' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                             Déconnexion
                         </a>
                     {% else %}
-                        <a href="{% url 'accounts:login' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        <a href="{% url 'accounts:login' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                             Connexion
                         </a>
-                        <a href="{% url 'accounts:register' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20">
+                        <a href="{% url 'accounts:register' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium py-2 px-1 rounded hover:bg-white/10 dark:hover:bg-white/20" role="menuitem">
                             Inscription
                         </a>
                     {% endif %}
@@ -149,17 +174,38 @@
 
     <!-- Messages -->
     {% if messages %}
-        <div class="container mx-auto px-4 py-2">
+        <div class="container mx-auto px-4 py-2" role="alert" aria-live="polite">
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} bg-white border-l-4 border-brand-primary p-4 mb-4 shadow-lg rounded-r-lg">
+                <div class="alert alert-{{ message.tags }} bg-white border-l-4 {% if message.tags == 'success' %}border-green-500{% elif message.tags == 'error' %}border-red-500{% elif message.tags == 'warning' %}border-yellow-500{% else %}border-blue-500{% endif %} p-4 mb-4 shadow-lg rounded-r-lg animate-fade-in">
                     <div class="flex">
                         <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-brand-primary" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-                            </svg>
+                            {% if message.tags == 'success' %}
+                                <svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                            {% elif message.tags == 'error' %}
+                                <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                            {% elif message.tags == 'warning' %}
+                                <svg class="h-5 w-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                            {% else %}
+                                <svg class="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                </svg>
+                            {% endif %}
                         </div>
                         <div class="ml-3">
-                            <p class="text-sm text-gray-700">{{ message }}</p>
+                            <p class="text-sm text-gray-700 dark:text-gray-300">{{ message }}</p>
+                        </div>
+                        <div class="ml-auto pl-3">
+                            <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" aria-label="Fermer le message">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -168,23 +214,27 @@
     {% endif %}
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content" role="main">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark text-white">
+    <footer class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark text-white" role="contentinfo">
         <div class="container mx-auto px-4 py-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Logo et description -->
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center space-x-4 mb-6">
                         <img 
-                            src="/static/images/logo.png" 
-                            alt="La P'tit Pastèk" 
-                            class="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 object-contain"
+                            src="{% static 'images/logo.png' %}" 
+                            alt="Logo La P'tit Pastèk" 
+                            class="h-16 w-16 sm:h-20 sm:w-20 object-contain"
                             onerror="this.style.display='none'"
                         />
+                        <div>
+                            <h2 class="text-xl font-bold">La P'tit Pastèk</h2>
+                            <p class="text-sm text-white/80">La pastèque autrement</p>
+                        </div>
                     </div>
                     <p class="text-white/90 dark:text-white/80 mb-4">
                         Découvrez nos délicieux produits alimentaires faits à base de pastèques fraîches. 
@@ -195,7 +245,7 @@
                 <!-- Liens rapides -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Liens rapides</h3>
-                    <div class="space-y-2">
+                    <nav class="space-y-2" aria-label="Liens rapides">
                         <a href="{% url 'home' %}" class="block text-white/90 dark:text-white/80 hover:text-white dark:hover:text-white transition-colors">
                             Accueil
                         </a>
@@ -208,16 +258,32 @@
                         <a href="{% url 'contact' %}" class="block text-white/90 dark:text-white/80 hover:text-white dark:hover:text-white transition-colors">
                             Contact
                         </a>
-                    </div>
+                    </nav>
                 </div>
 
                 <!-- Contact -->
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Contact</h3>
                     <div class="space-y-2 text-white/90 dark:text-white/80">
-                        <p>📧 contact@laptitpastek.fr</p>
-                        <p>📞 01 23 45 67 89</p>
-                        <p>📍 123 Rue des Fruits, 75001 Paris</p>
+                        <p class="flex items-center">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            contact@laptitpastek.fr
+                        </p>
+                        <p class="flex items-center">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            01 23 45 67 89
+                        </p>
+                        <p class="flex items-center">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            123 Rue des Fruits, 75001 Paris
+                        </p>
                     </div>
                 </div>
             </div>
@@ -233,7 +299,38 @@
         // Mobile menu toggle
         document.getElementById('mobile-menu-toggle').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
             menu.classList.toggle('hidden');
+            this.setAttribute('aria-expanded', !isExpanded);
+            this.setAttribute('aria-label', isExpanded ? 'Ouvrir le menu' : 'Fermer le menu');
+        });
+
+        // Auto-hide messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const messages = document.querySelectorAll('.alert');
+            messages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
     </script>
     
