@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}La P'tit Pastèk - La pastèque autrement{% endblock %}</title>
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dist/styles.css' %}" rel="stylesheet">
     <!-- TailwindCSS -->
     {% load tailwind_tags %}
     {% tailwind_css %}
@@ -39,7 +39,7 @@
                     <a href="{% url 'home' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
                         Accueil
                     </a>
-                    <a href="{% url 'products:list' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
+                    <a href="{% url 'products:list' %}" class="text-primary hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
                         Produits
                     </a>
                     <a href="{% url 'about' %}" class="text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream transition-colors duration-300 font-medium relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-white after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">
