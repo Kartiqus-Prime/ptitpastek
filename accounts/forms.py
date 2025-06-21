@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
+from django.core.exceptions import ValidationError
 from .models import User, Address
 
 
@@ -36,10 +37,16 @@ class CustomUserCreationForm(UserCreationForm):
             'placeholder': '••••••••'
         })
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Un compte avec cette adresse email existe déjà.")
+        return email
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
-        user.username = self.cleaned_data['email']
+        user.username = self.cleaned_data['email']  # Use email as username
         user.full_name = self.cleaned_data['full_name']
         if commit:
             user.save()

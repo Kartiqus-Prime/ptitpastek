@@ -1,5 +1,5 @@
-
 {% extends 'base.html' %}
+{% load cart_extras %}
 
 {% block title %}{{ product.name }} - La P'tit Pastèk{% endblock %}
 
@@ -65,76 +65,82 @@
                     <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
                         {{ product.description }}
                     </p>
+                    
+                    <!-- Stock Status -->
+                    <div class="mb-4">
+                        <span class="text-sm font-medium {{ product.stock_status_class }}">
+                            {{ product.stock_status }}
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Price -->
                 <div class="flex items-center space-x-4">
                     <span class="text-2xl sm:text-3xl font-bold text-watermelon-red dark:text-watermelon-pink">
-                        {{ product.price }}€
+                        {{ product.price|format_fcfa }}
                     </span>
                     {% if product.old_price %}
                         <span class="text-xl text-gray-500 dark:text-gray-400 line-through">
-                            {{ product.old_price }}€
+                            {{ product.old_price|format_fcfa }}
                         </span>
                         <span class="bg-watermelon-green text-white px-2 py-1 rounded text-sm font-medium">
-                            -{{ product.old_price|sub:product.price|div:product.old_price|mul:100|floatformat:0 }}%
+                            -{{ product.discount_percentage }}%
                         </span>
                     {% endif %}
                 </div>
 
                 <!-- Add to Cart Form -->
-                <form method="post" action="{% url 'cart:add_item' %}" class="space-y-4">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_id" value="{{ product.id }}">
-                    
-                    <div class="flex items-center space-x-4">
-                        <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            Quantité:
-                        </label>
-                        <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg">
-                            <button type="button" onclick="decreaseQuantity()" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                                </svg>
-                            </button>
-                            <input 
-                                type="number" 
-                                name="quantity" 
-                                id="quantity"
-                                value="1" 
-                                min="1" 
-                                class="w-16 px-4 py-2 text-center border-x border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none"
+                {% if product.in_stock and product.stock_quantity > 0 %}
+                    <form method="post" action="{% url 'cart:add_item' %}" class="space-y-4">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        
+                        <div class="flex items-center space-x-4">
+                            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Quantité:
+                            </label>
+                            <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-lg">
+                                <button type="button" onclick="decreaseQuantity()" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                    </svg>
+                                </button>
+                                <input 
+                                    type="number" 
+                                    name="quantity" 
+                                    id="quantity"
+                                    value="1" 
+                                    min="1" 
+                                    max="{{ product.stock_quantity }}"
+                                    class="w-16 px-4 py-2 text-center border-x border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none"
+                                >
+                                <button type="button" onclick="increaseQuantity()" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button 
+                                type="submit" 
+                                class="flex-1 bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
                             >
-                            <button type="button" onclick="increaseQuantity()" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"></path>
                                 </svg>
+                                Ajouter au panier
                             </button>
                         </div>
+                    </form>
+                {% else %}
+                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                        <p class="text-red-600 dark:text-red-400 font-medium">
+                            Ce produit n'est actuellement pas disponible.
+                        </p>
                     </div>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button 
-                            type="submit" 
-                            class="flex-1 bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-6 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
-                        >
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"></path>
-                            </svg>
-                            Ajouter au panier
-                        </button>
-                        
-                        <button 
-                            type="button" 
-                            onclick="toggleWishlist({{ product.id }})"
-                            class="px-6 py-3 border border-watermelon-red text-watermelon-red hover:bg-watermelon-red hover:text-white rounded-lg font-medium transition-all duration-300 flex items-center justify-center"
-                        >
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                            </svg>
-                        </button>
-                    </div>
-                </form>
+                {% endif %}
 
                 <!-- Product Features -->
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
@@ -155,7 +161,7 @@
                             <svg class="w-5 h-5 mr-2 text-watermelon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            Fabrication française
+                            Fabrication locale
                         </div>
                         <div class="flex items-center text-sm text-gray-600 dark:text-gray-300">
                             <svg class="w-5 h-5 mr-2 text-watermelon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,13 +238,18 @@
 <script>
 function increaseQuantity() {
     const input = document.getElementById('quantity');
-    input.value = parseInt(input.value) + 1;
+    const max = parseInt(input.getAttribute('max'));
+    const current = parseInt(input.value);
+    if (current < max) {
+        input.value = current + 1;
+    }
 }
 
 function decreaseQuantity() {
     const input = document.getElementById('quantity');
-    if (parseInt(input.value) > 1) {
-        input.value = parseInt(input.value) - 1;
+    const current = parseInt(input.value);
+    if (current > 1) {
+        input.value = current - 1;
     }
 }
 
@@ -261,11 +272,6 @@ function showTab(tabName) {
     const activeTab = document.getElementById(tabName + '-tab');
     activeTab.classList.add('border-watermelon-red', 'text-watermelon-red');
     activeTab.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700');
-}
-
-function toggleWishlist(productId) {
-    // Implementation for wishlist toggle
-    console.log('Toggle wishlist for product:', productId);
 }
 </script>
 {% endblock %}

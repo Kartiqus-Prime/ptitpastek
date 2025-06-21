@@ -1,38 +1,37 @@
-
 {% extends 'base.html' %}
 
-{% block title %}La P'tit Pastèk - Accueil{% endblock %}
+{% block title %}La P'tit Pastèk - Jus de pastèque 100% naturel{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
 <section class="py-20 bg-gradient-to-br from-brand-primary via-watermelon-red to-watermelon-pink dark:from-watermelon-red-dark dark:via-brand-primary dark:to-watermelon-red text-white relative overflow-hidden">
     <div class="absolute inset-0 bg-black/10 dark:bg-black/20"></div>
+    <!-- Floating watermelon illustrations -->
+    
     <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
             <div class="mb-6 inline-block bg-white/20 dark:bg-white/30 text-white hover:bg-white/30 dark:hover:bg-white/40 transition-colors duration-300 px-4 py-2 rounded-full">
-                🍉 Bienvenue chez La P'tit Pastèk
+                🍉 100% Naturel • 0% Conservateur
             </div>
             <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-                Savourez
-                <span class="text-watermelon-cream dark:text-watermelon-cream">l'Authenticité</span>
+                Le Jus de Pastèque
+                <span class="text-watermelon-cream dark:text-watermelon-cream">Authentique</span>
             </h1>
             <p class="text-xl md:text-2xl text-white/90 dark:text-white/80 mb-8 animate-fade-in">
-                Découvrez notre sélection de produits gourmands, préparés avec passion
-                et livrés directement chez vous.
+                De la récolte à votre verre : découvrez notre processus artisanal 
+                de transformation de pastèques fraîches en délicieux jus naturel.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
-                <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center">
-                    <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.7 6.2a1 1 0 001 1.3h9.4a1 1 0 001-1.3L15 13M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6"></path>
-                    </svg>
-                    Découvrir nos produits
+                <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center gap">
+                  
+                    Découvrir nos jus
                     <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
                 {% if not user.is_authenticated %}
                     <a href="{% url 'accounts:register' %}" class="border-white text-white hover:bg-white hover:text-brand-primary dark:border-gray-200 dark:hover:bg-gray-200 dark:hover:text-brand-primary transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium border-2 inline-flex items-center">
-                        Créer un compte
+                        Rejoindre la communauté
                     </a>
                 {% endif %}
             </div>
@@ -40,8 +39,148 @@
     </div>
 </section>
 
-<!-- Features Section -->
+<!-- Illustration Section -->
+<section class="py-12 bg-gradient-to-r from-watermelon-cream to-white dark:from-gray-800 dark:to-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
+            <div class="text-center animate-fade-in">
+                <div class="text-6xl mb-2 hover:scale-110 transition-transform duration-300">🍉</div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Pastèques fraîches</p>
+            </div>
+            <div class="text-center animate-fade-in" style="animation-delay: 0.2s">
+                <div class="text-6xl mb-2 hover:scale-110 transition-transform duration-300">🥤</div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Jus 100% naturel</p>
+            </div>
+            <div class="text-center animate-fade-in" style="animation-delay: 0.4s">
+                <div class="text-6xl mb-2 hover:scale-110 transition-transform duration-300">🌱</div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Processus artisanal</p>
+            </div>
+            <div class="text-center animate-fade-in" style="animation-delay: 0.6s">
+                <div class="text-6xl mb-2 hover:scale-110 transition-transform duration-300">❤️</div>
+                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium">Fait avec amour</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notre Processus Section -->
 <section class="py-16 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                Notre Processus
+                <span class="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+                    Artisanal
+                </span>
+            </h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                De la sélection des pastèques les plus mûres à votre verre, 
+                découvrez notre méthode traditionnelle de transformation.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Étape 1: Récolte -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-4xl mb-2">🍉</div>
+                </div>
+                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3 text-center">1. Récolte</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300">
+                    Nous sélectionnons les pastèques les plus mûres auprès des producteurs locaux en pleine saison.
+                </p>
+            </div>
+
+            <!-- Étape 2: Nettoyage -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-4xl mb-2">🚿</div>
+                </div>
+                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3 text-center">2. Nettoyage</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300">
+                    Chaque pastèque est nettoyée soigneusement avec de l'eau purifiée pour éliminer toute impureté.
+                </p>
+            </div>
+
+            <!-- Étape 3: Préparation -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+                    </svg>
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-4xl mb-2">🔪</div>
+                </div>
+                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3 text-center">3. Préparation</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300">
+                    Découpe en morceaux, retrait des pépins et mixage jusqu'à obtenir un liquide homogène.
+                </p>
+            </div>
+
+            <!-- Étape 4: Mixage -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-4xl mb-2">🌪️</div>
+                </div>
+                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3 text-center">4. Mixage</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300">
+                    Mixage des morceaux dans un blender professionnel jusqu'à obtenir un liquide parfaitement homogène.
+                </p>
+            </div>
+
+            <!-- Étape 5: Filtrage -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                    </svg>
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-4xl mb-2">⚗️</div>
+                </div>
+                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3 text-center">5. Filtrage</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300">
+                    Filtrage du jus à l'aide d'une passoire fine pour obtenir une texture parfaitement lisse.
+                </p>
+            </div>
+
+            <!-- Étape 6: Service -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
+                <div class="w-16 h-16 bg-gradient-to-r from-brand-primary to-watermelon-red rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-4xl mb-2">🥤</div>
+                </div>
+                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3 text-center">6. Service</h3>
+                <p class="text-center text-gray-600 dark:text-gray-300">
+                    Servi frais avec des glaçons et quelques feuilles de menthe pour plus de fraîcheur.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pourquoi Choisir Section -->
+<section class="py-16 bg-gradient-to-br from-watermelon-cream to-white dark:from-gray-800 dark:to-gray-900">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -51,68 +190,72 @@
                 </span>
             </h2>
             <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Nous nous engageons à vous offrir la meilleure expérience d'achat possible.
+                Découvrez tous les bienfaits de notre jus de pastèque 100% naturel.
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Feature 1 -->
+            <!-- Bon pour le cœur -->
             <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-brand-primary to-watermelon-red dark:from-watermelon-red dark:to-brand-primary rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
-                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3">Qualité Premium</h3>
-                <p class="text-center text-gray-600 dark:text-gray-300">
-                    Des produits sélectionnés avec soin pour leur qualité exceptionnelle
-                </p>
-            </div>
-
-            <!-- Feature 2 -->
-            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-brand-primary to-watermelon-red dark:from-watermelon-red dark:to-brand-primary rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
-                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3">Livraison Rapide</h3>
-                <p class="text-center text-gray-600 dark:text-gray-300">
-                    Livraison gratuite dès 50€ d'achat partout en France
-                </p>
-            </div>
-
-            <!-- Feature 3 -->
-            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-brand-primary to-watermelon-red dark:from-watermelon-red dark:to-brand-primary rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
-                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                    </svg>
-                </div>
-                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3">Paiement Sécurisé</h3>
-                <p class="text-center text-gray-600 dark:text-gray-300">
-                    Vos transactions sont protégées par nos systèmes de sécurité
-                </p>
-            </div>
-
-            <!-- Feature 4 -->
-            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-brand-primary to-watermelon-red dark:from-watermelon-red dark:to-brand-primary rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
                     <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                     </svg>
                 </div>
-                <h3 class="text-xl text-gray-900 dark:text-white font-semibold mb-3">Service Client</h3>
-                <p class="text-center text-gray-600 dark:text-gray-300">
-                    Une équipe dédiée à votre satisfaction 7j/7
-                </p>
+                <div class="text-4xl mb-4">❤️</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    Bon pour le cœur
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">Riche en lycopène, notre jus soutient la santé cardiovasculaire et aide à maintenir une tension artérielle saine.</p>
+            </div>
+
+            <!-- Hydratant -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                    </svg>
+                </div>
+                <div class="text-4xl mb-4">💧</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    Hydratant
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">Avec plus de 90% d'eau, notre jus est une délicieuse façon de rester hydraté tout au long de la journée.</p>
+            </div>
+
+            <!-- 100% Naturel -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                </div>
+                <div class="text-4xl mb-4">🌱</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    100% Naturel
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">Sans sucres ajoutés, conservateurs ou ingrédients artificiels. Juste de la pastèque pure dans chaque bouteille.</p>
+            </div>
+
+            <!-- Riche en nutriments -->
+            <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-2 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6 text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4 transform hover:scale-110 transition-transform duration-300">
+                    <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div class="text-4xl mb-4">🍎</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    Riche en nutriments
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300">Rempli de vitamines A, B et C ainsi que de potassium et d'acides aminés pour votre bien-être général.</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-16 bg-gradient-to-br from-watermelon-cream to-white dark:from-gray-800 dark:to-gray-900">
+<section class="py-16 bg-white dark:bg-gray-900">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -130,70 +273,49 @@
             <!-- Testimonial 1 -->
             <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
                 <div class="flex items-center space-x-1 mb-2">
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
+                    {% for i in "12345" %}
+                        <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    {% endfor %}
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-3xl">😊</div>
                 </div>
                 <h3 class="text-lg text-gray-900 dark:text-white font-semibold mb-3">Marie L.</h3>
-                <p class="text-gray-600 dark:text-gray-300 italic">"Des produits délicieux et une livraison ultra rapide !"</p>
+                <p class="text-gray-600 dark:text-gray-300 italic">"Un goût authentique et une fraîcheur incomparable ! Mon jus préféré pour l'été."</p>
             </div>
 
             <!-- Testimonial 2 -->
             <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
                 <div class="flex items-center space-x-1 mb-2">
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
+                    {% for i in "12345" %}
+                        <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    {% endfor %}
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-3xl">💪</div>
                 </div>
                 <h3 class="text-lg text-gray-900 dark:text-white font-semibold mb-3">Pierre M.</h3>
-                <p class="text-gray-600 dark:text-gray-300 italic">"La qualité est au rendez-vous, je recommande vivement."</p>
+                <p class="text-gray-600 dark:text-gray-300 italic">"Parfait après le sport ! Hydratant et délicieux, je recommande vivement."</p>
             </div>
 
             <!-- Testimonial 3 -->
             <div class="border border-watermelon-red/20 dark:border-gray-700 hover:border-watermelon-red/40 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-800/25 transform hover:-translate-y-1 transition-all duration-300 bg-white dark:bg-gray-800 rounded-lg p-6">
                 <div class="flex items-center space-x-1 mb-2">
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
-                    <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
-                    </svg>
+                    {% for i in "12345" %}
+                        <svg class="h-5 w-5 fill-watermelon-red text-watermelon-red dark:fill-watermelon-red-light dark:text-watermelon-red-light" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    {% endfor %}
+                </div>
+                <div class="text-center mb-4">
+                    <div class="text-3xl">👨‍👩‍👧‍👦</div>
                 </div>
                 <h3 class="text-lg text-gray-900 dark:text-white font-semibold mb-3">Sophie D.</h3>
-                <p class="text-gray-600 dark:text-gray-300 italic">"Un service client exceptionnel et des saveurs authentiques."</p>
+                <p class="text-gray-600 dark:text-gray-300 italic">"100% naturel comme promis ! Mes enfants adorent et moi aussi."</p>
             </div>
         </div>
     </div>
@@ -203,14 +325,15 @@
 <section class="py-16 bg-gradient-to-r from-brand-primary to-watermelon-red dark:from-watermelon-red-dark dark:to-brand-primary text-white">
     <div class="container mx-auto px-4 text-center">
         <h2 class="text-4xl font-bold mb-4">
-            Prêt à découvrir nos saveurs ?
+            Prêt à goûter l'authenticité ?
         </h2>
         <p class="text-xl text-white/90 dark:text-white/80 mb-8 max-w-2xl mx-auto">
-            Rejoignez des milliers de clients satisfaits et commandez dès maintenant.
+            Découvrez le vrai goût de la pastèque avec nos jus 100% naturels, 
+            préparés selon notre méthode artisanale traditionnelle.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center">
-                Voir tous nos produits
+                Découvrir nos jus
                 <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>

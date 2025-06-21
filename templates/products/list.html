@@ -1,5 +1,5 @@
-
 {% extends 'base.html' %}
+{% load cart_extras %}
 
 {% block title %}Nos Produits - La P'tit Pastèk{% endblock %}
 
@@ -79,14 +79,19 @@
                             {{ product.description|truncatewords:15 }}
                         </p>
                         
+                        <!-- Stock Status -->
+                        <p class="text-xs {{ product.stock_status_class }} mb-2">
+                            {{ product.stock_status }}
+                        </p>
+                        
                         <!-- Price -->
                         <div class="flex items-center gap-2 mb-4">
                             <span class="text-lg font-bold text-brand-primary">
-                                {{ product.price }}€
+                                {{ product.price|format_fcfa }}
                             </span>
                             {% if product.old_price %}
                                 <span class="text-sm text-gray-500 line-through">
-                                    {{ product.old_price }}€
+                                    {{ product.old_price|format_fcfa }}
                                 </span>
                             {% endif %}
                         </div>
@@ -96,12 +101,20 @@
                             <a href="{% url 'products:detail' product.slug %}" class="flex-1 bg-brand-primary text-white text-center py-2 px-4 rounded-lg hover:bg-watermelon-red transition-colors text-sm">
                                 Voir détails
                             </a>
-                            <form method="post" action="{% url 'cart:add' product.id %}" class="flex-1">
-                                {% csrf_token %}
-                                <button type="submit" class="w-full bg-watermelon-green text-white py-2 px-4 rounded-lg hover:bg-watermelon-green-dark transition-colors text-sm">
-                                    Ajouter
+                            {% if product.in_stock and product.stock_quantity > 0 %}
+                                <form method="post" action="{% url 'cart:add_item' %}" class="flex-1">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit" class="w-full bg-watermelon-green text-white py-2 px-4 rounded-lg hover:bg-watermelon-green-dark transition-colors text-sm">
+                                        Ajouter
+                                    </button>
+                                </form>
+                            {% else %}
+                                <button disabled class="flex-1 bg-gray-300 text-gray-500 py-2 px-4 rounded-lg text-sm cursor-not-allowed">
+                                    Indisponible
                                 </button>
-                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

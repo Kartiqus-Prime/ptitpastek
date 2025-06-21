@@ -124,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "fr-fr"
 
-TIME_ZONE = "Europe/Paris"
+TIME_ZONE = "Africa/Douala"
 
 USE_I18N = True
 
@@ -281,8 +281,8 @@ PAGINATE_BY = 12
 COMPANY_NAME = "La P'tit Pastèk"
 COMPANY_TAGLINE = "La pastèque autrement"
 COMPANY_EMAIL = "contact@laptitpastek.fr"
-COMPANY_PHONE = "01 23 45 67 89"
-COMPANY_ADDRESS = "123 Rue des Fruits, 75001 Paris"
+COMPANY_PHONE = "+237 6 XX XX XX XX"
+COMPANY_ADDRESS = "Douala, Cameroun"
 
 # Cart settings
 CART_SESSION_ID = 'cart'
@@ -290,5 +290,9 @@ CART_TIMEOUT = 86400 * 7  # 7 days
 
 # Order settings
 ORDER_NUMBER_PREFIX = 'LP'
-FREE_SHIPPING_THRESHOLD = 50.00
-DEFAULT_SHIPPING_COST = 5.90
+FREE_SHIPPING_THRESHOLD = 25000  # 25,000 FCFA
+DEFAULT_SHIPPING_COST = 2500  # 2,500 FCFA
+
+# Currency settings
+CURRENCY = 'FCFA'
+CURRENCY_SYMBOL = 'FCFA'

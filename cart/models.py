@@ -28,9 +28,9 @@ class Cart(models.Model):
 
     @property
     def shipping_cost(self):
-        if self.total_price >= 50:
+        if self.total_price >= 25000:  # 25,000 FCFA
             return 0
-        return 5.90
+        return 2500  # 2,500 FCFA
 
     @property
     def final_total(self):

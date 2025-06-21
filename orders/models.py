@@ -24,6 +24,12 @@ class Order(models.Model):
         ('refunded', 'Remboursée'),
     ]
 
+    PAYMENT_METHOD_CHOICES = [
+        ('cash_on_delivery', 'Paiement à la livraison'),
+        ('mobile_money', 'Mobile Money'),
+        ('bank_transfer', 'Virement bancaire'),
+    ]
+
     # Order identification
     order_number = models.CharField(max_length=20, unique=True, editable=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='orders')
@@ -31,21 +37,23 @@ class Order(models.Model):
     # Order status
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='pending')
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='cash_on_delivery')
     
     # Pricing
-    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
-    shipping_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=0, default=0)  # FCFA sans décimales
+    shipping_cost = models.DecimalField(max_digits=10, decimal_places=0, default=0)
+    tax_amount = models.DecimalField(max_digits=10, decimal_places=0, default=0)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=0, default=0)
     
     # Shipping information
     shipping_address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     shipping_name = models.CharField(max_length=255)
+    shipping_phone = models.CharField(max_length=20, blank=True)
     shipping_address_line1 = models.CharField(max_length=255)
     shipping_address_line2 = models.CharField(max_length=255, blank=True)
     shipping_city = models.CharField(max_length=100)
-    shipping_postal_code = models.CharField(max_length=10)
-    shipping_country = models.CharField(max_length=100, default='France')
+    shipping_postal_code = models.CharField(max_length=10, blank=True)
+    shipping_country = models.CharField(max_length=100, default='Cameroun')
     
     # Billing information (if different from shipping)
     billing_name = models.CharField(max_length=255, blank=True)
@@ -95,14 +103,30 @@ class Order(models.Model):
     def get_total_items(self):
         return sum(item.quantity for item in self.items.all())
 
+    def format_price(self, amount):
+        """Format price with FCFA currency"""
+        return f"{int(amount):,} FCFA".replace(',', ' ')
+
+    @property
+    def formatted_total(self):
+        return self.format_price(self.total_amount)
+
+    @property
+    def formatted_subtotal(self):
+        return self.format_price(self.subtotal)
+
+    @property
+    def formatted_shipping(self):
+        return self.format_price(self.shipping_cost)
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)  # Store product name at time of order
-    product_price = models.DecimalField(max_digits=10, decimal_places=2)  # Store price at time of order
+    product_price = models.DecimalField(max_digits=10, decimal_places=0, default=0)  # Store price at time of order
     quantity = models.PositiveIntegerField()
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    total_price = models.DecimalField(max_digits=10, decimal_places=0, default=0)
 
     class Meta:
         verbose_name = "Article de commande"
@@ -118,6 +142,18 @@ class OrderItem(models.Model):
             self.product_price = self.product.price
         self.total_price = self.quantity * self.product_price
         super().save(*args, **kwargs)
+
+    def format_price(self, amount):
+        """Format price with FCFA currency"""
+        return f"{int(amount):,} FCFA".replace(',', ' ')
+
+    @property
+    def formatted_total(self):
+        return self.format_price(self.total_price)
+
+    @property
+    def formatted_unit_price(self):
+        return self.format_price(self.product_price)
 
 
 class OrderStatusHistory(models.Model):

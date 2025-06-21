@@ -20,6 +20,12 @@
                 <form method="post" class="space-y-6">
                     {% csrf_token %}
                     
+                    {% if form.non_field_errors %}
+                        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    
                     <!-- Shipping Address -->
                     <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-6 shadow-sm">
                         <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
@@ -32,15 +38,31 @@
                                     Choisir une adresse existante
                                 </label>
                                 {{ form.shipping_address }}
+                                {% if form.shipping_address.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_address.errors.0 }}</div>
+                                {% endif %}
                             </div>
                         {% endif %}
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:col-span-2">
+                            <div>
                                 <label for="{{ form.shipping_name.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Nom complet *
                                 </label>
                                 {{ form.shipping_name }}
+                                {% if form.shipping_name.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div>
+                                <label for="{{ form.shipping_phone.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Téléphone *
+                                </label>
+                                {{ form.shipping_phone }}
+                                {% if form.shipping_phone.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_phone.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             
                             <div class="md:col-span-2">
@@ -48,6 +70,9 @@
                                     Adresse *
                                 </label>
                                 {{ form.shipping_address_line1 }}
+                                {% if form.shipping_address_line1.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_address_line1.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             
                             <div class="md:col-span-2">
@@ -55,6 +80,9 @@
                                     Complément d'adresse
                                 </label>
                                 {{ form.shipping_address_line2 }}
+                                {% if form.shipping_address_line2.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_address_line2.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             
                             <div>
@@ -62,13 +90,19 @@
                                     Ville *
                                 </label>
                                 {{ form.shipping_city }}
+                                {% if form.shipping_city.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_city.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             
                             <div>
                                 <label for="{{ form.shipping_postal_code.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Code postal *
+                                    Code postal
                                 </label>
                                 {{ form.shipping_postal_code }}
+                                {% if form.shipping_postal_code.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_postal_code.errors.0 }}</div>
+                                {% endif %}
                             </div>
                             
                             <div class="md:col-span-2">
@@ -76,8 +110,38 @@
                                     Pays *
                                 </label>
                                 {{ form.shipping_country }}
+                                {% if form.shipping_country.errors %}
+                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_country.errors.0 }}</div>
+                                {% endif %}
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- Payment Method -->
+                    <div class="bg-white dark:bg-gray-800 border border-watermelon-red/20 dark:border-gray-700 rounded-lg p-6 shadow-sm">
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                            Mode de paiement
+                        </h2>
+                        <div class="space-y-3">
+                            {% for choice in form.payment_method %}
+                                <div class="flex items-center space-x-3 p-3 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    {{ choice.tag }}
+                                    <label for="{{ choice.id_for_label }}" class="flex-1 cursor-pointer">
+                                        <span class="font-medium text-gray-900 dark:text-white">{{ choice.choice_label }}</span>
+                                        {% if choice.choice_value == 'cash_on_delivery' %}
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">Payez en espèces ou par Mobile Money à la livraison</p>
+                                        {% elif choice.choice_value == 'mobile_money' %}
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">Orange Money, MTN Mobile Money</p>
+                                        {% elif choice.choice_value == 'bank_transfer' %}
+                                            <p class="text-sm text-gray-600 dark:text-gray-300">Virement bancaire</p>
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if form.payment_method.errors %}
+                            <div class="text-red-600 dark:text-red-400 text-sm mt-2">{{ form.payment_method.errors.0 }}</div>
+                        {% endif %}
                     </div>
                     
                     <!-- Order Notes -->
@@ -89,6 +153,9 @@
                             Instructions spéciales (optionnel)
                         </label>
                         {{ form.notes }}
+                        {% if form.notes.errors %}
+                            <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.notes.errors.0 }}</div>
+                        {% endif %}
                     </div>
                     
                     <!-- Terms and Conditions -->
@@ -99,6 +166,9 @@
                                 J'accepte les <a href="#" class="text-watermelon-red hover:underline">conditions générales de vente</a> et la <a href="#" class="text-watermelon-red hover:underline">politique de confidentialité</a>
                             </label>
                         </div>
+                        {% if form.accept_terms.errors %}
+                            <div class="text-red-600 dark:text-red-400 text-sm mt-2">{{ form.accept_terms.errors.0 }}</div>
+                        {% endif %}
                     </div>
                     
                     <!-- Submit Button -->
@@ -133,11 +203,11 @@
                                         {{ item.product.name }}
                                     </p>
                                     <p class="text-sm text-gray-600 dark:text-gray-300">
-                                        {{ item.quantity }}x {{ item.product.price }}€
+                                        {{ item.quantity }}x {{ item.product.price|floatformat:0 }} FCFA
                                     </p>
                                 </div>
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">
-                                    {{ item.get_total_price }}€
+                                    {{ item.get_total_price|floatformat:0 }} FCFA
                                 </p>
                             </div>
                         {% endfor %}
@@ -147,15 +217,15 @@
                     <div class="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-2">
                         <div class="flex justify-between text-gray-600 dark:text-gray-300">
                             <span>Sous-total</span>
-                            <span>{{ cart.total_price }}€</span>
+                            <span>{{ cart.total_price|floatformat:0 }} FCFA</span>
                         </div>
                         <div class="flex justify-between text-gray-600 dark:text-gray-300">
                             <span>Livraison</span>
-                            <span>{% if cart.shipping_cost == 0 %}Gratuit{% else %}{{ cart.shipping_cost }}€{% endif %}</span>
+                            <span>{% if cart.shipping_cost == 0 %}Gratuit{% else %}{{ cart.shipping_cost|floatformat:0 }} FCFA{% endif %}</span>
                         </div>
                         <div class="flex justify-between text-xl font-semibold text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-700 pt-2">
                             <span>Total</span>
-                            <span>{{ cart.final_total }}€</span>
+                            <span>{{ cart.final_total|floatformat:0 }} FCFA</span>
                         </div>
                     </div>
                 </div>

@@ -35,7 +35,7 @@
     </a>
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark shadow-lg sticky top-0 z-40">
+    <header class="bg-gradient-to-r from-watermelon-red via-watermelon-pink to-watermelon-green dark:from-watermelon-red-dark dark:via-watermelon-pink dark:to-watermelon-green-dark shadow-lg sticky top-0 z-99">
         <nav class="container mx-auto px-4 py-2" role="navigation" aria-label="Navigation principale">
             <div class="flex items-center justify-between">
                 <!-- Logo -->
@@ -43,7 +43,7 @@
                     <img 
                         src="{% static 'images/logo.png' %}" 
                         alt="Logo La P'tit Pastèk" 
-                        class="h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain"
+                        class="h-25 w-25 sm:h-20 sm:w-20 md:h-24 md:w-24 object-contain"
                         onerror="this.style.display='none'"
                     />
                     <span class="ml-2 text-xl font-bold hidden sm:block">La P'tit Pastèk</span>
@@ -69,9 +69,7 @@
                 <div class="hidden md:flex items-center space-x-3 lg:space-x-4">
                     <!-- Cart Icon -->
                     <a href="{% url 'cart:view' %}" class="relative text-white hover:text-watermelon-cream dark:hover:text-watermelon-cream hover:bg-white/10 dark:hover:bg-white/20 p-2 rounded-lg transition-colors duration-300" aria-label="Voir le panier">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.7 6.2a1 1 0 001 1.3h9.4a1 1 0 001-1.3L15 13M7 13v6a2 2 0 002 2h6a2 2 0 002-2v-6"></path>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-bag-icon lucide-shopping-bag"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                         {% if cart_items_count > 0 %}
                             <span class="absolute -top-1 -right-1 bg-watermelon-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-medium">
                                 {{ cart_items_count }}

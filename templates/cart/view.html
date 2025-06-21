@@ -1,5 +1,5 @@
-
 {% extends 'base.html' %}
+{% load cart_extras %}
 
 {% block title %}Mon Panier - La P'tit Pastèk{% endblock %}
 
@@ -43,6 +43,9 @@
                                     <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
                                         {{ item.product.description|truncatewords:15 }}
                                     </p>
+                                    <p class="text-sm {{ item.product.stock_status_class }} mt-1">
+                                        {{ item.product.stock_status }}
+                                    </p>
                                     
                                     <div class="mt-4 flex items-center justify-between">
                                         <div class="flex items-center space-x-4">
@@ -51,7 +54,7 @@
                                                 <form method="post" action="{% url 'cart:update_quantity' item.id %}" class="inline">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="quantity" value="{{ item.quantity|add:'-1' }}">
-                                                    <button type="submit" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg">
+                                                    <button type="submit" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-l-lg" {% if item.quantity <= 1 %}disabled{% endif %}>
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
                                                         </svg>
@@ -63,7 +66,7 @@
                                                 <form method="post" action="{% url 'cart:update_quantity' item.id %}" class="inline">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="quantity" value="{{ item.quantity|add:'1' }}">
-                                                    <button type="submit" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg">
+                                                    <button type="submit" class="px-3 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-r-lg" {% if item.quantity >= item.product.stock_quantity %}disabled{% endif %}>
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                                         </svg>
@@ -72,14 +75,14 @@
                                             </div>
                                             
                                             <div class="text-lg font-semibold text-watermelon-red dark:text-watermelon-pink">
-                                                {{ item.get_total_price }}€
+                                                {{ item.get_total_price|format_fcfa }}
                                             </div>
                                         </div>
                                         
                                         <!-- Remove Button -->
                                         <form method="post" action="{% url 'cart:remove_item' item.id %}" class="inline">
                                             {% csrf_token %}
-                                            <button type="submit" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 p-2">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 p-2" onclick="return confirm('Retirer cet article du panier ?')">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                 </svg>
@@ -102,46 +105,57 @@
                         <div class="space-y-4">
                             <div class="flex justify-between text-gray-600 dark:text-gray-300">
                                 <span>Sous-total ({{ cart_items|length }} article{{ cart_items|length|pluralize }})</span>
-                                <span>{{ cart_total }}€</span>
+                                <span>{{ cart_total|format_fcfa }}</span>
                             </div>
                             
                             <div class="flex justify-between text-gray-600 dark:text-gray-300">
                                 <span>Frais de livraison</span>
-                                <span>{% if cart_total >= 50 %}Gratuit{% else %}5,90€{% endif %}</span>
+                                <span>{% if cart_total >= 25000 %}Gratuit{% else %}2 500 FCFA{% endif %}</span>
                             </div>
                             
                             <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
                                 <div class="flex justify-between text-xl font-semibold text-gray-900 dark:text-white">
                                     <span>Total</span>
-                                    <span>{{ cart_total|add:shipping_fee }}€</span>
+                                    <span>{{ final_total|format_fcfa }}</span>
                                 </div>
                             </div>
                             
-                            {% if cart_total < 50 %}
+                            {% if cart_total < 25000 %}
                                 <div class="bg-watermelon-cream dark:bg-gray-700 p-4 rounded-lg">
                                     <p class="text-sm text-gray-600 dark:text-gray-300">
                                         <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                         </svg>
-                                        Livraison gratuite dès 50€ d'achat
+                                        Livraison gratuite dès 25 000 FCFA d'achat
                                     </p>
+                                    {% with remaining=25000|sub:cart_total %}
                                     <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mt-2">
-                                        <div class="bg-watermelon-green h-2 rounded-full" style="width: {{ cart_total|mul:100|div:50 }}%"></div>
+                                        <div class="bg-watermelon-green h-2 rounded-full" style="width: {{ cart_total|mul:100|div:25000 }}%"></div>
                                     </div>
                                     <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                        Plus que {{ 50|sub:cart_total }}€ pour la livraison gratuite
+                                        Plus que {{ remaining|format_fcfa }} pour la livraison gratuite
                                     </p>
+                                    {% endwith %}
                                 </div>
                             {% endif %}
                         </div>
                         
                         <div class="mt-6 space-y-3">
-                            <a href="{% url 'orders:checkout' %}" class="w-full bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center">
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                Passer la commande
-                            </a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'orders:checkout' %}" class="w-full bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    Passer la commande
+                                </a>
+                            {% else %}
+                                <a href="{% url 'accounts:login' %}?next={% url 'orders:checkout' %}" class="w-full bg-gradient-to-r from-brand-primary to-watermelon-green hover:from-watermelon-red-dark hover:to-watermelon-green-dark text-white py-3 px-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                    </svg>
+                                    Se connecter pour commander
+                                </a>
+                            {% endif %}
                             
                             <a href="{% url 'products:list' %}" class="w-full border border-watermelon-green text-watermelon-green hover:bg-watermelon-green hover:text-white py-3 px-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

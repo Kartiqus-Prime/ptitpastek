@@ -17,9 +17,19 @@ class CheckoutForm(forms.Form):
     # Shipping details
     shipping_name = forms.CharField(
         max_length=255,
+        label="Nom complet",
         widget=forms.TextInput(attrs={
             'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20',
             'placeholder': 'Nom complet'
+        })
+    )
+    
+    shipping_phone = forms.CharField(
+        max_length=20,
+        label="Téléphone",
+        widget=forms.TextInput(attrs={
+            'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20',
+            'placeholder': '+237 6XX XX XX XX'
         })
     )
     
@@ -53,19 +63,30 @@ class CheckoutForm(forms.Form):
     
     shipping_postal_code = forms.CharField(
         max_length=10,
+        required=False,
         label="Code postal",
         widget=forms.TextInput(attrs={
             'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20',
-            'placeholder': 'Code postal'
+            'placeholder': 'Code postal (optionnel)'
         })
     )
     
     shipping_country = forms.CharField(
         max_length=100,
-        initial="France",
+        initial="Cameroun",
         label="Pays",
         widget=forms.TextInput(attrs={
             'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20'
+        })
+    )
+    
+    # Payment method
+    payment_method = forms.ChoiceField(
+        choices=Order.PAYMENT_METHOD_CHOICES,
+        initial='cash_on_delivery',
+        label="Mode de paiement",
+        widget=forms.RadioSelect(attrs={
+            'class': 'text-watermelon-red focus:ring-watermelon-red'
         })
     )
     
@@ -93,5 +114,20 @@ class CheckoutForm(forms.Form):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         
-        if user:
+        if user and user.is_authenticated:
             self.fields['shipping_address'].queryset = user.addresses.all()
+            # Pre-fill with user data
+            if user.get_full_name():
+                self.fields['shipping_name'].initial = user.get_full_name()
+            if user.phone:
+                self.fields['shipping_phone'].initial = user.phone
+
+    def clean_shipping_phone(self):
+        phone = self.cleaned_data.get('shipping_phone')
+        if phone and not phone.startswith('+237'):
+            # Auto-format Cameroon phone numbers
+            if phone.startswith('6') and len(phone) == 9:
+                phone = f'+237 {phone}'
+            elif phone.startswith('237'):
+                phone = f'+{phone}'
+        return phone
