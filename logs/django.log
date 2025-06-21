@@ -1,0 +1,297 @@
+INFO 2025-06-21 05:53:15,106 autoreload 10314 136666037948544 Watching for file changes with StatReloader
+INFO 2025-06-21 05:53:28,651 basehttp 10314 136665859356352 "GET / HTTP/1.1" 200 39368
+INFO 2025-06-21 05:53:28,807 basehttp 10314 136665850963648 "GET /static/css/custom.css HTTP/1.1" 200 5443
+INFO 2025-06-21 05:53:28,808 basehttp 10314 136665859356352 "GET /static/css/dist/styles.css?v=1750478008 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:53:28,809 basehttp 10314 136665850963648 "GET /static/images/logo.png HTTP/1.1" 200 257246
+ERROR 2025-06-21 05:53:39,706 log 10314 136665850963648 Internal Server Error: /products/
+Traceback (most recent call last):
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'add' not found. 'add' is not a valid view function or pattern name.
+ERROR 2025-06-21 05:53:39,708 basehttp 10314 136665850963648 "GET /products/ HTTP/1.1" 500 185611
+WARNING 2025-06-21 05:53:39,770 log 10314 136665850963648 Not Found: /favicon.ico
+WARNING 2025-06-21 05:53:39,770 basehttp 10314 136665850963648 "GET /favicon.ico HTTP/1.1" 404 3155
+INFO 2025-06-21 05:53:46,768 basehttp 10314 136665850963648 "GET / HTTP/1.1" 200 39368
+INFO 2025-06-21 05:53:46,809 basehttp 10314 136665859356352 "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-06-21 05:53:46,809 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478026 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:53:46,810 basehttp 10314 136665842570944 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2025-06-21 05:53:48,099 basehttp 10314 136665850963648 "GET /about/ HTTP/1.1" 200 32891
+INFO 2025-06-21 05:53:48,139 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478028 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:53:49,799 basehttp 10314 136665850963648 "GET /contact/ HTTP/1.1" 200 37416
+INFO 2025-06-21 05:53:49,839 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478029 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:53:52,624 basehttp 10314 136665850963648 "GET /about/ HTTP/1.1" 200 32891
+INFO 2025-06-21 05:53:52,656 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478032 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:53:53,835 basehttp 10314 136665850963648 "GET /contact/ HTTP/1.1" 200 37416
+INFO 2025-06-21 05:53:53,873 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478033 HTTP/1.1" 200 62143
+ERROR 2025-06-21 05:53:57,305 log 10314 136665850963648 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'password_reset' not found. 'password_reset' is not a valid view function or pattern name.
+ERROR 2025-06-21 05:53:57,307 basehttp 10314 136665850963648 "GET /accounts/login/ HTTP/1.1" 500 172072
+INFO 2025-06-21 05:54:01,350 basehttp 10314 136665850963648 "GET /accounts/register/ HTTP/1.1" 200 23597
+INFO 2025-06-21 05:54:01,391 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478041 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:54:01,392 basehttp 10314 136665842570944 "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-06-21 05:54:01,433 basehttp 10314 136665842570944 "GET /static/images/logo.png HTTP/1.1" 304 0
+INFO 2025-06-21 05:54:17,134 basehttp 10314 136665850963648 "POST /accounts/register/ HTTP/1.1" 302 0
+ERROR 2025-06-21 05:54:17,174 log 10314 136665850963648 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'password_reset' not found. 'password_reset' is not a valid view function or pattern name.
+ERROR 2025-06-21 05:54:17,176 basehttp 10314 136665850963648 "GET /accounts/login/ HTTP/1.1" 500 172402
+ERROR 2025-06-21 05:54:23,463 log 10314 136665850963648 Internal Server Error: /accounts/register/
+Traceback (most recent call last):
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: UNIQUE constraint failed: accounts_user.username
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/views/generic/edit.py", line 184, in post
+    return super().post(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/views/generic/edit.py", line 153, in post
+    return self.form_valid(form)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Documents/ptitpastek/accounts/views.py", line 34, in form_valid
+    response = super().form_valid(form)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/views/generic/edit.py", line 135, in form_valid
+    self.object = form.save()
+                  ^^^^^^^^^^^
+  File "/home/kartiqus/Documents/ptitpastek/accounts/forms.py", line 45, in save
+    user.save()
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/contrib/auth/base_user.py", line 76, in save
+    super().save(*args, **kwargs)
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/base.py", line 814, in save
+    self.save_base(
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/base.py", line 877, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/base.py", line 1020, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/base.py", line 1061, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/query.py", line 1805, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1822, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 102, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kartiqus/Downloads/ptitpastek-main/env/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 328, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: UNIQUE constraint failed: accounts_user.username
+ERROR 2025-06-21 05:54:23,465 basehttp 10314 136665850963648 "POST /accounts/register/ HTTP/1.1" 500 200660
+INFO 2025-06-21 05:54:29,515 basehttp 10314 136665850963648 "GET /accounts/register/ HTTP/1.1" 200 23597
+INFO 2025-06-21 05:54:29,548 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478069 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:54:37,290 basehttp 10314 136665850963648 "GET / HTTP/1.1" 200 39368
+INFO 2025-06-21 05:54:37,333 basehttp 10314 136665842570944 "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-06-21 05:54:37,333 basehttp 10314 136665850963648 "GET /static/css/dist/styles.css?v=1750478077 HTTP/1.1" 200 62143
+INFO 2025-06-21 05:54:37,334 basehttp 10314 136665842570944 "GET /static/images/logo.png HTTP/1.1" 304 0
