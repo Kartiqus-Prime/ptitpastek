@@ -1,2 +1,4 @@
 node_modules/
 .env
+theme/static_src/node_modules
+media
