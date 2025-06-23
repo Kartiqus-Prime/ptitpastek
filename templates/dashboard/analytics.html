@@ -1,0 +1,198 @@
+{% extends 'dashboard/base.html' %}
+{% load cart_extras %}
+
+{% block page_title %}Analytics{% endblock %}
+
+{% block content %}
+<div class="p-6">
+    <!-- Header -->
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Analytics</h2>
+        <p class="text-gray-600 dark:text-gray-400">Analysez les performances de votre boutique</p>
+    </div>
+
+    <!-- Period Filter -->
+    <div class="bg-white dark:bg-gray-800 shadow rounded-lg mb-6">
+        <div class="p-6">
+            <form method="get" class="flex items-center space-x-4">
+                <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Période :</label>
+                <select name="period" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    <option value="7" {% if period == '7' %}selected{% endif %}>7 derniers jours</option>
+                    <option value="30" {% if period == '30' %}selected{% endif %}>30 derniers jours</option>
+                    <option value="90" {% if period == '90' %}selected{% endif %}>90 derniers jours</option>
+                </select>
+                <span class="text-sm text-gray-500 dark:text-gray-400">
+                    Du {{ start_date|date:"d/m/Y" }} au {{ end_date|date:"d/m/Y" }}
+                </span>
+            </form>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <!-- Sales Chart -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Évolution des ventes</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="salesChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Orders Chart -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Nombre de commandes</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="ordersChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Top Products -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Produits les plus vendus</h3>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                {% for product in top_products %}
+                    <div class="px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                {% if product.image %}
+                                    <img class="h-10 w-10 rounded-lg object-cover" src="{{ product.image.url }}" alt="{{ product.name }}">
+                                {% else %}
+                                    <div class="h-10 w-10 rounded-lg bg-watermelon-cream flex items-center justify-center">
+                                        <span class="text-lg">🍉</span>
+                                    </div>
+                                {% endif %}
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">{{ product.name }}</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ product.total_sold }} vendu{{ product.total_sold|pluralize }}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ product.revenue|format_fcfa }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                        Aucune donnée disponible
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Order Status Distribution -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Répartition des commandes</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="statusChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Sales Chart
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    const salesData = {{ daily_sales|safe }};
+    
+    new Chart(salesCtx, {
+        type: 'line',
+        data: {
+            labels: salesData.map(item => item.date),
+            datasets: [{
+                label: 'Revenus (FCFA)',
+                data: salesData.map(item => item.revenue),
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString() + ' FCFA';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Orders Chart
+    const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+    
+    new Chart(ordersCtx, {
+        type: 'bar',
+        data: {
+            labels: salesData.map(item => item.date),
+            datasets: [{
+                label: 'Commandes',
+                data: salesData.map(item => item.orders),
+                backgroundColor: '#16A34A',
+                borderColor: '#15803D',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+
+    // Status Chart
+    const statusCtx = document.getElementById('statusChart').getContext('2d');
+    const statusData = {{ order_status_data|safe }};
+    
+    new Chart(statusCtx, {
+        type: 'doughnut',
+        data: {
+            labels: statusData.map(item => item.status),
+            datasets: [{
+                data: statusData.map(item => item.count),
+                backgroundColor: [
+                    '#FCD34D', // pending
+                    '#60A5FA', // confirmed
+                    '#34D399', // processing
+                    '#A78BFA', // shipped
+                    '#10B981', // delivered
+                    '#F87171', // cancelled
+                    '#6B7280'  // other
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

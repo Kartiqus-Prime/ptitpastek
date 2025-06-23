@@ -1,0 +1,65 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Merci pour votre message - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="greeting">
+    Bonjour {{ name }},
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <div style="font-size: 48px; margin-bottom: 15px;">📧</div>
+    <h2 style="color: #EF4444; margin-bottom: 10px;">
+        Message bien reçu !
+    </h2>
+</div>
+
+<div class="content-section">
+    <p>Merci de nous avoir contactés ! Nous avons bien reçu votre message et nous vous répondrons dans les plus brefs délais.</p>
+    
+    <div class="address-box">
+        <div class="address-title">Récapitulatif de votre message :</div>
+        <p><strong>Sujet :</strong> {{ subject }}</p>
+        <p><strong>Message :</strong></p>
+        <div style="background-color: #f9fafb; padding: 15px; border-radius: 8px; font-style: italic; margin-top: 10px;">
+            "{{ message }}"
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>⏰ Délai de réponse</h2>
+    <p>Notre équipe s'engage à vous répondre sous <strong>24 heures</strong> en moyenne. Pour les demandes urgentes, n'hésitez pas à nous appeler.</p>
+    
+    <div style="background-color: #D1FAE5; border: 1px solid #16A34A; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <p style="margin: 0; color: #065F46;">
+            <strong>💡 Le saviez-vous ?</strong> Vous pouvez également consulter notre FAQ sur notre site web pour obtenir des réponses immédiates aux questions les plus courantes.
+        </p>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>📞 Autres moyens de nous contacter</h2>
+    <ul style="margin: 15px 0; padding-left: 20px;">
+        <li>📧 Email : <a href="mailto:contact@laptitpastek.com" style="color: #EF4444;">contact@laptitpastek.com</a></li>
+        <li>⏰ Horaires : Lundi-Vendredi 9h-18h, Samedi 9h-12h</li>
+        <li>🌐 Site web : <a href="#" style="color: #EF4444;">www.laptitpastek.com</a></li>
+    </ul>
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <a href="#" class="btn">Visiter notre site</a>
+</div>
+
+<div class="content-section">
+    <p>En attendant notre réponse, n'hésitez pas à découvrir nos délicieux jus de pastèque 100% naturels !</p>
+    
+    <p>À très bientôt,</p>
+    
+    <p style="margin-top: 20px;">
+        <span class="watermelon-decoration">🍉</span>
+        L'équipe La P'tit Pastèk
+        <span class="watermelon-decoration">🍉</span>
+    </p>
+</div>
+{% endblock %}

@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.db.models import Q, Avg, Count
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Product, Category, ProductReview
 
 
@@ -132,3 +134,10 @@ def search_products(request):
     }
     
     return render(request, 'products/search.html', context)
+
+
+@login_required
+def add_product(request):
+    """Placeholder view for adding products - should be implemented based on requirements"""
+    messages.info(request, 'Fonctionnalité d\'ajout de produit en cours de développement.')
+    return redirect('products:list')

@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from products.models import Product, Category
+from orders.utils import send_contact_confirmation_email, send_admin_contact_notification
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class HomeView(TemplateView):
@@ -78,37 +80,20 @@ class ContactView(TemplateView):
             messages.error(request, 'Veuillez saisir une adresse email valide.')
             return self.get(request, *args, **kwargs)
         
-        # Prepare email content
-        email_subject = f"[La P'tit Pastèk] {subject}"
-        email_message = f"""
-        Nouveau message de contact:
-        
-        Nom: {name}
-        Email: {email}
-        Sujet: {subject}
-        
-        Message:
-        {message}
-        
-        ---
-        Envoyé depuis le site La P'tit Pastèk
-        """
-        
         try:
-            # Send email (in production, configure proper email backend)
-            send_mail(
-                email_subject,
-                email_message,
-                email,
-                ['contact@laptitpastek.fr'],  # Replace with actual email
-                fail_silently=False,
-            )
+            # Send confirmation email to user
+            user_email_sent = send_contact_confirmation_email(name, email, subject, message)
             
-            messages.success(request, 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.')
+            # Send notification email to admin
+            admin_email_sent = send_admin_contact_notification(name, email, subject, message)
+            
+            if user_email_sent or admin_email_sent:
+                messages.success(request, 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.')
+            else:
+                messages.warning(request, 'Votre message a été reçu mais il y a eu un problème avec l\'envoi de l\'email de confirmation.')
             
         except Exception as e:
-            # Log the error in production
-            print(f"Email error: {e}")
+            logger.error(f"Erreur lors du traitement du formulaire de contact: {e}")
             messages.error(request, 'Une erreur est survenue lors de l\'envoi de votre message. Veuillez réessayer.')
         
         return self.get(request, *args, **kwargs)

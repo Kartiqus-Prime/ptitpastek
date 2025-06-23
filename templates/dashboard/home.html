@@ -1,0 +1,263 @@
+{% extends 'dashboard/base.html' %}
+{% load cart_extras %}
+
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<div class="p-6">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Utilisateurs -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Utilisateurs</dt>
+                            <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ total_users }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 px-5 py-3">
+                <div class="text-sm">
+                    <span class="text-green-600 dark:text-green-400 font-medium">+{{ new_users_today }}</span>
+                    <span class="text-gray-500 dark:text-gray-400"> aujourd'hui</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Produits -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Produits</dt>
+                            <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ active_products }}/{{ total_products }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 px-5 py-3">
+                <div class="text-sm">
+                    <span class="text-red-600 dark:text-red-400 font-medium">{{ out_of_stock }}</span>
+                    <span class="text-gray-500 dark:text-gray-400"> en rupture</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commandes -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Commandes</dt>
+                            <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ total_orders }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 px-5 py-3">
+                <div class="text-sm">
+                    <span class="text-orange-600 dark:text-orange-400 font-medium">{{ pending_orders }}</span>
+                    <span class="text-gray-500 dark:text-gray-400"> en attente</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenus -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Revenus</dt>
+                            <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ total_revenue|format_fcfa }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-700 px-5 py-3">
+                <div class="text-sm">
+                    <span class="text-green-600 dark:text-green-400 font-medium">{{ revenue_month|format_fcfa }}</span>
+                    <span class="text-gray-500 dark:text-gray-400"> ce mois</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Graphique des ventes -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Ventes des 7 derniers jours</h3>
+            </div>
+            <div class="p-6">
+                <canvas id="salesChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Commandes récentes -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Commandes récentes</h3>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                {% for order in recent_orders %}
+                    <div class="px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">#{{ order.order_number }}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ order.user.get_full_name }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ order.total_amount|format_fcfa }}</p>
+                                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
+                                    {% if order.status == 'delivered' %}bg-green-100 text-green-800{% endif %}
+                                    {% if order.status == 'pending' %}bg-yellow-100 text-yellow-800{% endif %}
+                                    {% if order.status == 'processing' %}bg-blue-100 text-blue-800{% endif %}
+                                    {% if order.status == 'shipped' %}bg-purple-100 text-purple-800{% endif %}
+                                    {% if order.status == 'cancelled' %}bg-red-100 text-red-800{% endif %}
+                                ">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                        Aucune commande récente
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Produits populaires -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Produits populaires</h3>
+            </div>
+            <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                {% for product in popular_products %}
+                    <div class="px-6 py-4">
+                        <div class="flex items-center">
+                            {% if product.image %}
+                                <img class="h-10 w-10 rounded-lg object-cover" src="{{ product.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                                <div class="h-10 w-10 rounded-lg bg-watermelon-cream flex items-center justify-center">
+                                    <span class="text-lg">🍉</span>
+                                </div>
+                            {% endif %}
+                            <div class="ml-4 flex-1">
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">{{ product.name }}</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ product.order_count }} commande{{ product.order_count|pluralize }}</p>
+                            </div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-white">
+                                {{ product.price|format_fcfa }}
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                        Aucun produit populaire
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Actions rapides -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Actions rapides</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <a href="{% url 'dashboard:orders' %}" class="block w-full bg-watermelon-red hover:bg-watermelon-red-dark text-white text-center py-2 px-4 rounded-lg transition-colors">
+                    Gérer les commandes
+                </a>
+                <a href="{% url 'dashboard:products' %}" class="block w-full bg-watermelon-green hover:bg-watermelon-green-dark text-white text-center py-2 px-4 rounded-lg transition-colors">
+                    Gérer les produits
+                </a>
+                <a href="{% url 'admin:index' %}" class="block w-full border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 text-center py-2 px-4 rounded-lg transition-colors">
+                    Admin Django
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Graphique des ventes
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesData = {{ sales_data|safe }};
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: salesData.map(item => item.date),
+            datasets: [{
+                label: 'Ventes (FCFA)',
+                data: salesData.map(item => item.sales),
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString() + ' FCFA';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y.toLocaleString() + ' FCFA';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "orders",
     "cart",
     "core",
+    "dashboard",
 ]
 
 MIDDLEWARE = [
@@ -170,18 +171,18 @@ SESSION_COOKIE_AGE = 86400 * 30  # 30 days
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-# Email configuration (for development)
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-DEFAULT_FROM_EMAIL = "La P'tit Pastèk <noreply@laptitpastek.fr>"
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-# For production, use:
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = "your-email@gmail.com"
-# EMAIL_HOST_PASSWORD = "your-password"
+
+# Configuration alternative pour Brevo (ex-Sendinblue)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('BREVO_EMAIL', '')
+EMAIL_HOST_PASSWORD = os.environ.get('BREVO_API_KEY', '')
+
+
+DEFAULT_FROM_EMAIL = "La P'tit Pastèk <vicaire.des.ombres@gmail.com>"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # REST Framework configuration
 REST_FRAMEWORK = {
@@ -280,7 +281,7 @@ PAGINATE_BY = 12
 # Custom settings for the application
 COMPANY_NAME = "La P'tit Pastèk"
 COMPANY_TAGLINE = "La pastèque autrement"
-COMPANY_EMAIL = "contact@laptitpastek.fr"
+COMPANY_EMAIL = "contact@laptitpastek.com"
 COMPANY_PHONE = "+237 6 XX XX XX XX"
 COMPANY_ADDRESS = "Douala, Cameroun"
 

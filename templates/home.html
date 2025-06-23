@@ -4,33 +4,47 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="py-20 bg-gradient-to-br from-brand-primary via-watermelon-red to-watermelon-pink dark:from-watermelon-red-dark dark:via-brand-primary dark:to-watermelon-red text-white relative overflow-hidden">
+<section class="relative py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-brand-primary via-watermelon-red to-watermelon-pink dark:from-watermelon-red-dark dark:via-brand-primary dark:to-watermelon-red text-white overflow-hidden">
     <div class="absolute inset-0 bg-black/10 dark:bg-black/20"></div>
     <!-- Floating watermelon illustrations -->
+    <div class="absolute top-10 left-10 opacity-20 animate-bounce" style="animation-delay: 0s;">
+        <div class="text-6xl">🍉</div>
+    </div>
+    <div class="absolute top-20 right-20 opacity-20 animate-bounce" style="animation-delay: 1s;">
+        <div class="text-4xl">🍉</div>
+    </div>
+    <div class="absolute bottom-20 left-20 opacity-20 animate-bounce" style="animation-delay: 2s;">
+        <div class="text-5xl">🍉</div>
+    </div>
+    <div class="absolute bottom-10 right-10 opacity-20 animate-bounce" style="animation-delay: 0.5s;">
+        <div class="text-3xl">🍉</div>
+    </div>
     
     <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
             <div class="mb-6 inline-block bg-white/20 dark:bg-white/30 text-white hover:bg-white/30 dark:hover:bg-white/40 transition-colors duration-300 px-4 py-2 rounded-full">
                 🍉 100% Naturel • 0% Conservateur
             </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
                 Le Jus de Pastèque
                 <span class="text-watermelon-cream dark:text-watermelon-cream">Authentique</span>
             </h1>
-            <p class="text-xl md:text-2xl text-white/90 dark:text-white/80 mb-8 animate-fade-in">
+            <p class="text-lg sm:text-xl md:text-2xl text-white/90 dark:text-white/80 mb-8 animate-fade-in max-w-3xl mx-auto">
                 De la récolte à votre verre : découvrez notre processus artisanal 
                 de transformation de pastèques fraîches en délicieux jus naturel.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
-                <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center gap">
-                  
+                <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center justify-center">
+                    <svg class="mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
                     Découvrir nos jus
                     <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </a>
                 {% if not user.is_authenticated %}
-                    <a href="{% url 'accounts:register' %}" class="border-white text-white hover:bg-white hover:text-brand-primary dark:border-gray-200 dark:hover:bg-gray-200 dark:hover:text-brand-primary transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium border-2 inline-flex items-center">
+                    <a href="{% url 'accounts:register' %}" class="border-white text-white hover:bg-white hover:text-brand-primary dark:border-gray-200 dark:hover:bg-gray-200 dark:hover:text-brand-primary transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium border-2 inline-flex items-center justify-center">
                         Rejoindre la communauté
                     </a>
                 {% endif %}
@@ -332,13 +346,13 @@
             préparés selon notre méthode artisanale traditionnelle.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center">
+            <a href="{% url 'products:list' %}" class="bg-white text-brand-primary hover:bg-watermelon-cream dark:bg-gray-100 dark:text-brand-primary dark:hover:bg-watermelon-cream transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl px-6 py-3 rounded-lg font-medium inline-flex items-center justify-center">
                 Découvrir nos jus
                 <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
             </a>
-            <a href="{% url 'contact' %}" class="border-white text-white hover:bg-white hover:text-brand-primary dark:border-gray-200 dark:hover:bg-gray-200 dark:hover:text-brand-primary transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium border-2 inline-flex items-center">
+            <a href="{% url 'contact' %}" class="border-white text-white hover:bg-white hover:text-brand-primary dark:border-gray-200 dark:hover:bg-gray-200 dark:hover:text-brand-primary transform hover:scale-105 transition-all duration-300 px-6 py-3 rounded-lg font-medium border-2 inline-flex items-center justify-center">
                 Nous contacter
             </a>
         </div>

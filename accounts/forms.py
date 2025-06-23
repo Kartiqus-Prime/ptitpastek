@@ -46,7 +46,14 @@ class CustomUserCreationForm(UserCreationForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
-        user.username = self.cleaned_data['email']  # Use email as username
+        # Generate unique username from email
+        base_username = self.cleaned_data['email'].split('@')[0]
+        username = base_username
+        counter = 1
+        while User.objects.filter(username=username).exists():
+            username = f"{base_username}{counter}"
+            counter += 1
+        user.username = username
         user.full_name = self.cleaned_data['full_name']
         if commit:
             user.save()
@@ -66,6 +73,16 @@ class CustomAuthenticationForm(AuthenticationForm):
             'placeholder': '••••••••'
         })
     )
+
+    def clean_username(self):
+        email = self.cleaned_data.get('username')
+        if email:
+            try:
+                user = User.objects.get(email=email)
+                return user.username
+            except User.DoesNotExist:
+                pass
+        return email
 
 
 class ProfileUpdateForm(forms.ModelForm):
@@ -91,7 +108,7 @@ class ProfileUpdateForm(forms.ModelForm):
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['name', 'address_line1', 'address_line2', 'city', 'postal_code', 'country', 'type', 'is_default']
+        fields = ['name', 'address_line1', 'address_line2', 'city', 'type', 'is_default']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'
@@ -103,12 +120,6 @@ class AddressForm(forms.ModelForm):
                 'class': 'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'
             }),
             'city': forms.TextInput(attrs={
-                'class': 'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'
-            }),
-            'postal_code': forms.TextInput(attrs={
-                'class': 'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'
-            }),
-            'country': forms.TextInput(attrs={
                 'class': 'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white'
             }),
             'type': forms.Select(attrs={

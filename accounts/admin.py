@@ -26,6 +26,6 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('name', 'user', 'city', 'type', 'is_default', 'created_at')
-    list_filter = ('type', 'is_default', 'country', 'created_at')
+    list_filter = ('type', 'is_default', 'created_at')
     search_fields = ('name', 'user__email', 'city', 'address_line1')
     ordering = ('-created_at',)

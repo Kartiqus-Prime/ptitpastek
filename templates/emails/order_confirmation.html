@@ -1,0 +1,97 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Confirmation de commande #{{ order.order_number }} - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="greeting">
+    Bonjour {{ order.shipping_name }},
+</div>
+
+<p>Merci pour votre commande ! Nous avons bien reçu votre commande et nous la préparons avec soin.</p>
+
+<div class="order-summary">
+    <div class="order-header">
+        <div class="order-number">Commande #{{ order.order_number }}</div>
+        <div style="color: #6B7280; font-size: 14px;">
+            Passée le {{ order.created_at|date:"d F Y à H:i" }}
+        </div>
+        <div style="margin-top: 10px;">
+            <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+        </div>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <h3 style="color: #EF4444; margin-bottom: 15px;">📦 Vos articles</h3>
+    {% for item in order.items.all %}
+    <div class="order-item">
+        <div class="item-details">
+            <div class="item-name">{{ item.product_name }}</div>
+            <div class="item-quantity">Quantité: {{ item.quantity }}</div>
+        </div>
+        <div class="item-price">{{ item.total_price|floatformat:0 }} FCFA</div>
+    </div>
+    {% endfor %}
+    
+    <div class="order-total">
+        <div>Total de votre commande</div>
+        <div class="total-amount">{{ order.total_amount|floatformat:0 }} FCFA</div>
+        {% if order.shipping_cost > 0 %}
+        <div style="font-size: 14px; margin-top: 5px;">
+            (dont {{ order.shipping_cost|floatformat:0 }} FCFA de livraison)
+        </div>
+        {% else %}
+        <div style="font-size: 14px; margin-top: 5px;">
+            🎉 Livraison gratuite !
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>🚚 Livraison</h2>
+    <div class="address-box">
+        <div class="address-title">Adresse de livraison :</div>
+        <div>{{ order.shipping_name }}</div>
+        {% if order.shipping_phone %}
+        <div>📞 {{ order.shipping_phone }}</div>
+        {% endif %}
+        <div>{{ order.shipping_address_line1 }}</div>
+        {% if order.shipping_address_line2 %}
+        <div>{{ order.shipping_address_line2 }}</div>
+        {% endif %}
+        <div>{{ order.shipping_postal_code }} {{ order.shipping_city }}</div>
+        <div>{{ order.shipping_country }}</div>
+    </div>
+    
+    <p><strong>Mode de paiement :</strong> {{ order.get_payment_method_display }}</p>
+    
+    {% if order.notes %}
+    <p><strong>Vos notes :</strong> {{ order.notes }}</p>
+    {% endif %}
+</div>
+
+<div class="content-section">
+    <h2>⏰ Que se passe-t-il maintenant ?</h2>
+    <p>🔍 <strong>Vérification :</strong> Nous vérifions votre commande et préparons vos délicieux jus de pastèque.</p>
+    <p>🍉 <strong>Préparation :</strong> Nos artisans préparent vos jus avec des pastèques fraîches sélectionnées.</p>
+    <p>📦 <strong>Expédition :</strong> Nous vous contacterons pour organiser la livraison.</p>
+    <p>🎉 <strong>Dégustation :</strong> Savourez nos jus 100% naturels !</p>
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <a href="#" class="btn">Suivre ma commande</a>
+</div>
+
+<div class="content-section">
+    <p>Si vous avez des questions concernant votre commande, n'hésitez pas à nous contacter à <a href="mailto:contact@laptitpastek.com" style="color: #EF4444;">contact@laptitpastek.com</a></p>
+    
+    <p>Merci de votre confiance et à bientôt pour de nouvelles dégustations !</p>
+    
+    <p style="margin-top: 20px;">
+        <span class="watermelon-decoration">🍉</span>
+        L'équipe La P'tit Pastèk
+        <span class="watermelon-decoration">🍉</span>
+    </p>
+</div>
+{% endblock %}

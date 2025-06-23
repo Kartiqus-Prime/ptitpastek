@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard - La P'tit Pastèk{% endblock %}</title>
+    
+    <!-- TailwindCSS -->
+    {% load tailwind_tags %}
+    {% tailwind_css %}
+    
+    <!-- Custom CSS -->
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="h-full bg-gray-50 dark:bg-gray-900">
+    <div class="flex h-full">
+        <!-- Sidebar -->
+        <div class="hidden md:flex md:w-64 md:flex-col">
+            <div class="flex flex-col flex-grow pt-5 overflow-y-auto bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700">
+                <!-- Logo -->
+                <div class="flex items-center flex-shrink-0 px-4">
+                    <img class="h-8 w-auto" src="{% static 'images/logo.png' %}" alt="La P'tit Pastèk" onerror="this.style.display='none'">
+                    <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">Dashboard</span>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="mt-8 flex-1 px-2 space-y-1">
+                    <a href="{% url 'dashboard:home' %}" class="{% if request.resolver_match.url_name == 'home' %}bg-watermelon-red text-white{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{% endif %} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v3H8V5z"></path>
+                        </svg>
+                        Tableau de bord
+                    </a>
+                    
+                    <a href="{% url 'dashboard:orders' %}" class="{% if request.resolver_match.url_name == 'orders' %}bg-watermelon-red text-white{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{% endif %} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l-1 12H6L5 9z"></path>
+                        </svg>
+                        Commandes
+                    </a>
+                    
+                    <a href="{% url 'dashboard:products' %}" class="{% if request.resolver_match.url_name == 'products' %}bg-watermelon-red text-white{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{% endif %} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                        Produits
+                    </a>
+                    
+                    <a href="{% url 'dashboard:users' %}" class="{% if request.resolver_match.url_name == 'users' %}bg-watermelon-red text-white{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{% endif %} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                        Utilisateurs
+                    </a>
+                    
+                    <a href="{% url 'dashboard:analytics' %}" class="{% if request.resolver_match.url_name == 'analytics' %}bg-watermelon-red text-white{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{% endif %} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        Analytics
+                    </a>
+                    
+                    <a href="{% url 'dashboard:settings' %}" class="{% if request.resolver_match.url_name == 'settings' %}bg-watermelon-red text-white{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700{% endif %} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Paramètres
+                    </a>
+                </nav>
+                
+                <!-- Bottom section -->
+                <div class="flex-shrink-0 flex border-t border-gray-200 dark:border-gray-700 p-4">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            {% if user.avatar %}
+                                <img class="h-8 w-8 rounded-full" src="{{ user.avatar.url }}" alt="{{ user.get_full_name }}">
+                            {% else %}
+                                <div class="h-8 w-8 rounded-full bg-watermelon-red flex items-center justify-center">
+                                    <span class="text-white text-sm font-medium">{{ user.get_full_name|first|upper }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ user.get_full_name }}</p>
+                            <a href="{% url 'home' %}" class="text-xs text-gray-500 dark:text-gray-400 hover:text-watermelon-red">Voir le site</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="flex flex-col flex-1 overflow-hidden">
+            <!-- Top bar -->
+            <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center">
+                        <button type="button" class="md:hidden -ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-watermelon-red" onclick="toggleSidebar()">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                        <h1 class="ml-4 md:ml-0 text-2xl font-semibold text-gray-900 dark:text-white">
+                            {% block page_title %}Dashboard{% endblock %}
+                        </h1>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <!-- Notifications -->
+                        <button class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM11 19H6a2 2 0 01-2-2V7a2 2 0 012-2h5m5 0v5"></path>
+                            </svg>
+                        </button>
+                        
+                        <!-- User menu -->
+                        <div class="relative">
+                            <button class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-watermelon-red">
+                                {% if user.avatar %}
+                                    <img class="h-8 w-8 rounded-full" src="{{ user.avatar.url }}" alt="{{ user.get_full_name }}">
+                                {% else %}
+                                    <div class="h-8 w-8 rounded-full bg-watermelon-red flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">{{ user.get_full_name|first|upper }}</span>
+                                    </div>
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page content -->
+            <main class="flex-1 overflow-y-auto">
+                {% if messages %}
+                    <div class="p-4">
+                        {% for message in messages %}
+                            <div class="mb-4 p-4 rounded-md {% if message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% elif message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'warning' %}bg-yellow-50 text-yellow-800 border border-yellow-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile sidebar overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 hidden md:hidden" onclick="toggleSidebar()"></div>
+    
+    <!-- Mobile sidebar -->
+    <div id="mobile-sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+        <!-- Mobile sidebar content (same as desktop) -->
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+                <span class="text-xl font-bold text-gray-900 dark:text-white">Dashboard</span>
+                <button onclick="toggleSidebar()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Same navigation as desktop -->
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const overlay = document.getElementById('sidebar-overlay');
+            const sidebar = document.getElementById('mobile-sidebar');
+            
+            overlay.classList.toggle('hidden');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -28,8 +28,6 @@ class Address(models.Model):
     address_line1 = models.CharField(max_length=255)
     address_line2 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=10)
-    country = models.CharField(max_length=100, default='France')
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='home')
     is_default = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

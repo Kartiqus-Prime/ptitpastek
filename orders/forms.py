@@ -61,25 +61,6 @@ class CheckoutForm(forms.Form):
         })
     )
     
-    shipping_postal_code = forms.CharField(
-        max_length=10,
-        required=False,
-        label="Code postal",
-        widget=forms.TextInput(attrs={
-            'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20',
-            'placeholder': 'Code postal (optionnel)'
-        })
-    )
-    
-    shipping_country = forms.CharField(
-        max_length=100,
-        initial="Cameroun",
-        label="Pays",
-        widget=forms.TextInput(attrs={
-            'class': 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20'
-        })
-    )
-    
     # Payment method
     payment_method = forms.ChoiceField(
         choices=Order.PAYMENT_METHOD_CHOICES,

@@ -52,16 +52,12 @@ class Order(models.Model):
     shipping_address_line1 = models.CharField(max_length=255)
     shipping_address_line2 = models.CharField(max_length=255, blank=True)
     shipping_city = models.CharField(max_length=100)
-    shipping_postal_code = models.CharField(max_length=10, blank=True)
-    shipping_country = models.CharField(max_length=100, default='Cameroun')
     
     # Billing information (if different from shipping)
     billing_name = models.CharField(max_length=255, blank=True)
     billing_address_line1 = models.CharField(max_length=255, blank=True)
     billing_address_line2 = models.CharField(max_length=255, blank=True)
     billing_city = models.CharField(max_length=100, blank=True)
-    billing_postal_code = models.CharField(max_length=10, blank=True)
-    billing_country = models.CharField(max_length=100, blank=True)
     
     # Additional information
     notes = models.TextField(blank=True)

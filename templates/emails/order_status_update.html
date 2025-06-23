@@ -1,0 +1,83 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Mise à jour de votre commande #{{ order.order_number }} - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="greeting">
+    Bonjour {{ order.shipping_name }},
+</div>
+
+<p>Nous avons une mise à jour concernant votre commande !</p>
+
+<div class="order-summary">
+    <div class="order-header">
+        <div class="order-number">Commande #{{ order.order_number }}</div>
+        <div style="margin-top: 15px;">
+            <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+        </div>
+    </div>
+    
+    {% if order.status == 'confirmed' %}
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="font-size: 48px; margin-bottom: 10px;">✅</div>
+        <h3 style="color: #16A34A;">Commande confirmée !</h3>
+        <p>Votre commande a été confirmée et nous commençons la préparation de vos délicieux jus de pastèque.</p>
+    </div>
+    {% elif order.status == 'processing' %}
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="font-size: 48px; margin-bottom: 10px;">🍉</div>
+        <h3 style="color: #F472B6;">En préparation</h3>
+        <p>Nos artisans préparent actuellement vos jus avec des pastèques fraîchement sélectionnées !</p>
+    </div>
+    {% elif order.status == 'shipped' %}
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="font-size: 48px; margin-bottom: 10px;">🚚</div>
+        <h3 style="color: #7C2D12;">Commande expédiée !</h3>
+        <p>Votre commande est en route ! Nous vous contacterons bientôt pour organiser la livraison.</p>
+        {% if order.tracking_number %}
+        <p><strong>Numéro de suivi :</strong> {{ order.tracking_number }}</p>
+        {% endif %}
+    </div>
+    {% elif order.status == 'delivered' %}
+    <div style="text-align: center; margin: 20px 0;">
+        <div style="font-size: 48px; margin-bottom: 10px;">🎉</div>
+        <h3 style="color: #065F46;">Commande livrée !</h3>
+        <p>Votre commande a été livrée avec succès ! Nous espérons que vous allez savourer nos jus de pastèque.</p>
+    </div>
+    {% endif %}
+</div>
+
+{% if order.status == 'delivered' %}
+<div class="content-section">
+    <h2>💭 Votre avis nous intéresse</h2>
+    <p>Comment avez-vous trouvé nos jus de pastèque ? Votre retour nous aide à nous améliorer !</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="#" class="btn">Laisser un avis</a>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>🔄 Recommander</h2>
+    <p>Vous avez aimé ? Recommandez facilement vos produits préférés !</p>
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="#" class="btn btn-secondary">Recommander</a>
+    </div>
+</div>
+{% endif %}
+
+<div style="text-align: center; margin: 30px 0;">
+    <a href="#" class="btn">Voir ma commande</a>
+</div>
+
+<div class="content-section">
+    <p>Pour toute question, contactez-nous à <a href="mailto:contact@laptitpastek.com" style="color: #EF4444;">contact@laptitpastek.com</a></p>
+    
+    <p>Merci de votre confiance !</p>
+    
+    <p style="margin-top: 20px;">
+        <span class="watermelon-decoration">🍉</span>
+        L'équipe La P'tit Pastèk
+        <span class="watermelon-decoration">🍉</span>
+    </p>
+</div>
+{% endblock %}

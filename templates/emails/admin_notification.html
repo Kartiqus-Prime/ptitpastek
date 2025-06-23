@@ -1,0 +1,51 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Notification Administrateur - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="greeting">
+    Notification Administrateur
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <div style="font-size: 48px; margin-bottom: 15px;">🔔</div>
+    <h2 style="color: #EF4444; margin-bottom: 10px;">
+        Nouvelle notification
+    </h2>
+</div>
+
+<div class="content-section">
+    <p>Une nouvelle notification a été générée sur le site La P'tit Pastèk.</p>
+    
+    <div class="address-box">
+        <p><strong>Type :</strong> {{ notification_type|default:"Notification générale" }}</p>
+        <p><strong>Date :</strong> {{ timestamp|default:"Maintenant" }}</p>
+        {% if user %}
+        <p><strong>Utilisateur :</strong> {{ user.get_full_name|default:user.email }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>📋 Détails</h2>
+    <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <p style="margin: 0; white-space: pre-wrap;">{{ details|default:"Aucun détail supplémentaire." }}</p>
+    </div>
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <a href="#" class="btn">
+        Accéder à l'administration
+    </a>
+</div>
+
+<div class="content-section">
+    <p>Cette notification a été générée automatiquement par le système La P'tit Pastèk.</p>
+    
+    <p style="margin-top: 20px;">
+        <span class="watermelon-decoration">🍉</span>
+        Système La P'tit Pastèk
+        <span class="watermelon-decoration">🍉</span>
+    </p>
+</div>
+{% endblock %}

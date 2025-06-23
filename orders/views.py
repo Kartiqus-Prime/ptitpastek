@@ -6,11 +6,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.conf import settings
 from .models import Order, OrderItem, OrderStatusHistory
 from cart.utils import get_or_create_cart
 from accounts.models import Address
 from .forms import CheckoutForm
+from .utils import send_order_confirmation_email
 
 
 @login_required
@@ -87,7 +89,7 @@ def checkout_view(request):
                         created_by=request.user
                     )
                     
-                    # Send confirmation email
+                    # Send confirmation email with HTML template
                     try:
                         send_order_confirmation_email(order)
                     except Exception as e:
@@ -126,37 +128,6 @@ def checkout_view(request):
     }
     
     return render(request, 'orders/checkout.html', context)
-
-
-def send_order_confirmation_email(order):
-    """Send order confirmation email"""
-    subject = f'Confirmation de commande #{order.order_number} - La P\'tit Pastèk'
-    
-    # Email content
-    message = f"""
-    Bonjour {order.shipping_name},
-
-    Votre commande #{order.order_number} a été confirmée !
-
-    Détails de la commande:
-    - Total: {order.formatted_total}
-    - Mode de paiement: {order.get_payment_method_display()}
-    - Adresse de livraison: {order.shipping_address_line1}, {order.shipping_city}
-
-    Nous vous contacterons bientôt pour organiser la livraison.
-
-    Merci de votre confiance !
-
-    L'équipe La P'tit Pastèk
-    """
-    
-    send_mail(
-        subject,
-        message,
-        settings.DEFAULT_FROM_EMAIL,
-        [order.user.email],
-        fail_silently=False,
-    )
 
 
 class OrderListView(LoginRequiredMixin, ListView):

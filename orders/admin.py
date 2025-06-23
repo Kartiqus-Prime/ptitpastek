@@ -1,5 +1,9 @@
 from django.contrib import admin
 from .models import Order, OrderItem, OrderStatusHistory
+from .utils import send_order_status_update_email
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class OrderItemInline(admin.TabularInline):
@@ -50,48 +54,110 @@ class OrderAdmin(admin.ModelAdmin):
 
     actions = ['mark_as_confirmed', 'mark_as_processing', 'mark_as_shipped', 'mark_as_delivered']
 
+    def save_model(self, request, obj, form, change):
+        """Override save to send email when status changes"""
+        if change:
+            # Get the original object to compare status
+            original = Order.objects.get(pk=obj.pk)
+            status_changed = original.status != obj.status
+        else:
+            status_changed = False
+        
+        super().save_model(request, obj, form, change)
+        
+        # Send email if status changed
+        if status_changed:
+            try:
+                send_order_status_update_email(obj)
+            except Exception as e:
+                logger.error(f"Erreur lors de l'envoi de l'email de mise à jour: {e}")
+
     def mark_as_confirmed(self, request, queryset):
-        queryset.update(status='confirmed')
+        updated_count = 0
         for order in queryset:
-            OrderStatusHistory.objects.create(
-                order=order,
-                status='confirmed',
-                notes='Statut mis à jour par l\'administrateur',
-                created_by=request.user
-            )
+            if order.status != 'confirmed':
+                order.status = 'confirmed'
+                order.save()
+                OrderStatusHistory.objects.create(
+                    order=order,
+                    status='confirmed',
+                    notes='Statut mis à jour par l\'administrateur',
+                    created_by=request.user
+                )
+                # Send email notification
+                try:
+                    send_order_status_update_email(order)
+                except Exception as e:
+                    logger.error(f"Erreur email pour commande {order.order_number}: {e}")
+                updated_count += 1
+        
+        self.message_user(request, f'{updated_count} commande(s) marquée(s) comme confirmée(s).')
     mark_as_confirmed.short_description = "Marquer comme confirmée"
 
     def mark_as_processing(self, request, queryset):
-        queryset.update(status='processing')
+        updated_count = 0
         for order in queryset:
-            OrderStatusHistory.objects.create(
-                order=order,
-                status='processing',
-                notes='Statut mis à jour par l\'administrateur',
-                created_by=request.user
-            )
+            if order.status != 'processing':
+                order.status = 'processing'
+                order.save()
+                OrderStatusHistory.objects.create(
+                    order=order,
+                    status='processing',
+                    notes='Statut mis à jour par l\'administrateur',
+                    created_by=request.user
+                )
+                # Send email notification
+                try:
+                    send_order_status_update_email(order)
+                except Exception as e:
+                    logger.error(f"Erreur email pour commande {order.order_number}: {e}")
+                updated_count += 1
+        
+        self.message_user(request, f'{updated_count} commande(s) marquée(s) comme en préparation.')
     mark_as_processing.short_description = "Marquer comme en préparation"
 
     def mark_as_shipped(self, request, queryset):
-        queryset.update(status='shipped')
+        updated_count = 0
         for order in queryset:
-            OrderStatusHistory.objects.create(
-                order=order,
-                status='shipped',
-                notes='Statut mis à jour par l\'administrateur',
-                created_by=request.user
-            )
+            if order.status != 'shipped':
+                order.status = 'shipped'
+                order.save()
+                OrderStatusHistory.objects.create(
+                    order=order,
+                    status='shipped',
+                    notes='Statut mis à jour par l\'administrateur',
+                    created_by=request.user
+                )
+                # Send email notification
+                try:
+                    send_order_status_update_email(order)
+                except Exception as e:
+                    logger.error(f"Erreur email pour commande {order.order_number}: {e}")
+                updated_count += 1
+        
+        self.message_user(request, f'{updated_count} commande(s) marquée(s) comme expédiée(s).')
     mark_as_shipped.short_description = "Marquer comme expédiée"
 
     def mark_as_delivered(self, request, queryset):
-        queryset.update(status='delivered')
+        updated_count = 0
         for order in queryset:
-            OrderStatusHistory.objects.create(
-                order=order,
-                status='delivered',
-                notes='Statut mis à jour par l\'administrateur',
-                created_by=request.user
-            )
+            if order.status != 'delivered':
+                order.status = 'delivered'
+                order.save()
+                OrderStatusHistory.objects.create(
+                    order=order,
+                    status='delivered',
+                    notes='Statut mis à jour par l\'administrateur',
+                    created_by=request.user
+                )
+                # Send email notification
+                try:
+                    send_order_status_update_email(order)
+                except Exception as e:
+                    logger.error(f"Erreur email pour commande {order.order_number}: {e}")
+                updated_count += 1
+        
+        self.message_user(request, f'{updated_count} commande(s) marquée(s) comme livrée(s).')
     mark_as_delivered.short_description = "Marquer comme livrée"
 
 

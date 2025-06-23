@@ -85,33 +85,13 @@
                                 {% endif %}
                             </div>
                             
-                            <div>
+                            <div class="md:col-span-2">
                                 <label for="{{ form.shipping_city.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Ville *
                                 </label>
                                 {{ form.shipping_city }}
                                 {% if form.shipping_city.errors %}
                                     <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_city.errors.0 }}</div>
-                                {% endif %}
-                            </div>
-                            
-                            <div>
-                                <label for="{{ form.shipping_postal_code.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Code postal
-                                </label>
-                                {{ form.shipping_postal_code }}
-                                {% if form.shipping_postal_code.errors %}
-                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_postal_code.errors.0 }}</div>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="md:col-span-2">
-                                <label for="{{ form.shipping_country.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Pays *
-                                </label>
-                                {{ form.shipping_country }}
-                                {% if form.shipping_country.errors %}
-                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.shipping_country.errors.0 }}</div>
                                 {% endif %}
                             </div>
                         </div>

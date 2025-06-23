@@ -7,6 +7,7 @@ from django.views.generic import CreateView, TemplateView
 from django.urls import reverse_lazy
 from .forms import CustomUserCreationForm, CustomAuthenticationForm, ProfileUpdateForm, AddressForm
 from .models import User, Address
+from orders.utils import send_welcome_email
 
 
 class CustomLoginView(LoginView):
@@ -32,6 +33,14 @@ class RegisterView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        
+        # Send welcome email
+        try:
+            send_welcome_email(self.object)
+        except Exception as e:
+            # Log email error but don't fail the registration
+            print(f"Welcome email error: {e}")
+        
         messages.success(self.request, 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.')
         return response
 

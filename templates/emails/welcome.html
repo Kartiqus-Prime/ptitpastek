@@ -1,0 +1,90 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Bienvenue chez La P'tit Pastèk !{% endblock %}
+
+{% block content %}
+<div class="greeting">
+    Bonjour {{ user.get_full_name|default:user.email }},
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <div style="font-size: 64px; margin-bottom: 20px;">🎉</div>
+    <h2 style="color: #EF4444; font-size: 28px; margin-bottom: 10px;">
+        Bienvenue dans la famille La P'tit Pastèk !
+    </h2>
+    <p style="font-size: 18px; color: #6B7280;">
+        Découvrez le vrai goût de la pastèque
+    </p>
+</div>
+
+<div class="content-section">
+    <h2>🍉 Qui sommes-nous ?</h2>
+    <p>La P'tit Pastèk, c'est la passion de transformer la pastèque en délicieux jus 100% naturels. Notre méthode artisanale respecte chaque étape, de la sélection des pastèques les plus mûres jusqu'au service dans votre verre.</p>
+    
+    <div style="background-color: #FEF7F0; border-left: 4px solid #EF4444; padding: 20px; margin: 20px 0; border-radius: 0 8px 8px 0;">
+        <p><strong>Notre promesse :</strong> Aucun sucre ajouté, aucun conservateur, aucun artifice. Juste le goût authentique de la pastèque dans toute sa splendeur.</p>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>🌟 Pourquoi choisir nos jus ?</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+        <div style="text-align: center; padding: 15px;">
+            <div style="font-size: 32px; margin-bottom: 10px;">❤️</div>
+            <h4 style="color: #EF4444; margin-bottom: 5px;">Bon pour le cœur</h4>
+            <p style="font-size: 14px;">Riche en lycopène</p>
+        </div>
+        <div style="text-align: center; padding: 15px;">
+            <div style="font-size: 32px; margin-bottom: 10px;">💧</div>
+            <h4 style="color: #EF4444; margin-bottom: 5px;">Hydratant</h4>
+            <p style="font-size: 14px;">Plus de 90% d'eau</p>
+        </div>
+        <div style="text-align: center; padding: 15px;">
+            <div style="font-size: 32px; margin-bottom: 10px;">🌱</div>
+            <h4 style="color: #EF4444; margin-bottom: 5px;">100% Naturel</h4>
+            <p style="font-size: 14px;">Sans additifs</p>
+        </div>
+        <div style="text-align: center; padding: 15px;">
+            <div style="font-size: 32px; margin-bottom: 10px;">🍎</div>
+            <h4 style="color: #EF4444; margin-bottom: 5px;">Riche en vitamines</h4>
+            <p style="font-size: 14px;">A, B, C et potassium</p>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; margin: 40px 0;">
+    <a href="#" class="btn">Découvrir nos jus</a>
+</div>
+
+<div class="content-section">
+    <h2>🎁 Offre de bienvenue</h2>
+    <div style="background: linear-gradient(135deg, #EF4444, #F472B6); color: white; padding: 25px; border-radius: 12px; text-align: center; margin: 20px 0;">
+        <div style="font-size: 32px; margin-bottom: 10px;">🎉</div>
+        <h3 style="margin-bottom: 10px;">Livraison gratuite</h3>
+        <p style="margin-bottom: 15px;">sur votre première commande de plus de 25 000 FCFA</p>
+        <div style="background-color: rgba(255, 255, 255, 0.2); padding: 10px; border-radius: 8px; font-weight: bold; letter-spacing: 1px;">
+            Code : BIENVENUE
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>📞 Besoin d'aide ?</h2>
+    <p>Notre équipe est là pour vous accompagner :</p>
+    <ul style="margin: 15px 0; padding-left: 20px;">
+        <li>📧 Email : <a href="mailto:contact@laptitpastek.com" style="color: #EF4444;">contact@laptitpastek.com</a></li>
+        <li>⏰ Horaires : Lun-Ven 9h-18h, Sam 9h-12h</li>
+        <li>🚚 Livraison gratuite dès 25 000 FCFA</li>
+    </ul>
+</div>
+
+<div class="content-section">
+    <p>Merci de nous faire confiance pour vos moments de fraîcheur !</p>
+    
+    <p style="margin-top: 20px;">
+        <span class="watermelon-decoration">🍉</span>
+        L'équipe La P'tit Pastèk
+        <span class="watermelon-decoration">🍉</span>
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'emails/base_email.html' %}
+
+{% block title %}Nouveau message de contact - La P'tit Pastèk{% endblock %}
+
+{% block content %}
+<div class="greeting">
+    Nouveau message de contact reçu
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <div style="font-size: 48px; margin-bottom: 15px;">📧</div>
+    <h2 style="color: #EF4444; margin-bottom: 10px;">
+        Nouveau message de contact
+    </h2>
+</div>
+
+<div class="content-section">
+    <h2>👤 Informations du contact</h2>
+    <div class="address-box">
+        <p><strong>Nom :</strong> {{ name }}</p>
+        <p><strong>Email :</strong> <a href="mailto:{{ email }}" style="color: #EF4444;">{{ email }}</a></p>
+        <p><strong>Sujet :</strong> {{ subject }}</p>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>💬 Message</h2>
+    <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0;">
+        <p style="margin: 0; white-space: pre-wrap;">{{ message }}</p>
+    </div>
+</div>
+
+<div style="text-align: center; margin: 30px 0;">
+    <a href="mailto:{{ email }}?subject=Re: {{ subject }}" class="btn">
+        Répondre directement
+    </a>
+</div>
+
+<div class="content-section">
+    <p style="font-size: 14px; color: #6B7280;">
+        Ce message a été envoyé depuis le formulaire de contact du site La P'tit Pastèk.
+    </p>
+</div>
+{% endblock %}

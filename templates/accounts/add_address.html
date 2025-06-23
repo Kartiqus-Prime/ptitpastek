@@ -59,33 +59,13 @@
                                 {% endif %}
                             </div>
                             
-                            <div>
+                            <div class="md:col-span-2">
                                 <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Ville *
                                 </label>
                                 {{ form.city }}
                                 {% if form.city.errors %}
                                     <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.city.errors.0 }}</div>
-                                {% endif %}
-                            </div>
-                            
-                            <div>
-                                <label for="{{ form.postal_code.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Code postal *
-                                </label>
-                                {{ form.postal_code }}
-                                {% if form.postal_code.errors %}
-                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.postal_code.errors.0 }}</div>
-                                {% endif %}
-                            </div>
-                            
-                            <div>
-                                <label for="{{ form.country.id_for_label }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Pays *
-                                </label>
-                                {{ form.country }}
-                                {% if form.country.errors %}
-                                    <div class="text-red-600 dark:text-red-400 text-sm mt-1">{{ form.country.errors.0 }}</div>
                                 {% endif %}
                             </div>
                             

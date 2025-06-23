@@ -1,0 +1,177 @@
+{% extends 'dashboard/base.html' %}
+
+{% block page_title %}Paramètres{% endblock %}
+
+{% block content %}
+<div class="p-6">
+    <!-- Header -->
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Paramètres</h2>
+        <p class="text-gray-600 dark:text-gray-400">Configurez les paramètres de votre boutique</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Site Settings -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Paramètres du site</h3>
+            </div>
+            <div class="p-6">
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nom du site</label>
+                        <input type="text" value="La P'tit Pastèk" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">La pastèque autrement - Jus de pastèque 100% naturel</textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email de contact</label>
+                        <input type="email" value="contact@laptitpastek.com" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Téléphone</label>
+                        <input type="text" value="+237 6XX XX XX XX" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <button type="submit" class="bg-watermelon-red hover:bg-watermelon-red-dark text-white px-4 py-2 rounded-lg transition-colors">
+                        Sauvegarder
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- E-commerce Settings -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Paramètres e-commerce</h3>
+            </div>
+            <div class="p-6">
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Devise</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                            <option value="FCFA" selected>FCFA (Franc CFA)</option>
+                            <option value="EUR">EUR (Euro)</option>
+                            <option value="USD">USD (Dollar)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Frais de livraison par défaut</label>
+                        <input type="number" value="2500" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Seuil livraison gratuite</label>
+                        <input type="number" value="25000" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="auto_stock" checked class="rounded border-gray-300 text-watermelon-red focus:ring-watermelon-red">
+                        <label for="auto_stock" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                            Gestion automatique du stock
+                        </label>
+                    </div>
+                    <button type="submit" class="bg-watermelon-red hover:bg-watermelon-red-dark text-white px-4 py-2 rounded-lg transition-colors">
+                        Sauvegarder
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Email Settings -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Paramètres email</h3>
+            </div>
+            <div class="p-6">
+                <form method="post" class="space-y-4">
+                    {% csrf_token %}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Serveur SMTP</label>
+                        <input type="text" placeholder="smtp.gmail.com" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Port SMTP</label>
+                        <input type="number" value="587" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email expéditeur</label>
+                        <input type="email" placeholder="noreply@laptitpastek.com" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-watermelon-red/20 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="email_notifications" checked class="rounded border-gray-300 text-watermelon-red focus:ring-watermelon-red">
+                        <label for="email_notifications" class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                            Activer les notifications email
+                        </label>
+                    </div>
+                    <button type="submit" class="bg-watermelon-red hover:bg-watermelon-red-dark text-white px-4 py-2 rounded-lg transition-colors">
+                        Sauvegarder
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Sécurité</h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white">Authentification à deux facteurs</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Sécurisez votre compte avec 2FA</p>
+                        </div>
+                        <button class="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 px-3 py-1 rounded text-sm">
+                            Configurer
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white">Sessions actives</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Gérez vos sessions de connexion</p>
+                        </div>
+                        <button class="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 px-3 py-1 rounded text-sm">
+                            Voir
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-white">Sauvegarde des données</h4>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Exportez vos données</p>
+                        </div>
+                        <button class="bg-watermelon-red hover:bg-watermelon-red-dark text-white px-3 py-1 rounded text-sm transition-colors">
+                            Exporter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Information -->
+    <div class="mt-8 bg-white dark:bg-gray-800 shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Informations système</h3>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Version Django</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">4.2.11</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Base de données</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">SQLite</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-medium text-gray-900 dark:text-white mb-2">Mode debug</h4>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{% if debug %}Activé{% else %}Désactivé{% endif %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
